@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Cadastro de Bolsa</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+        <!-- <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/formulario.css') }}"> -->
+    </head>
+
+    <body style="margin: 50px 0px 50px 0px">
+        <div class="container">
+            <h1 class="header">Formulário de cadastro de bolsa</h1>
+
+            <form id="bolsaForm" action="\formbolsa" method="POST">
+                <div class="form-group">
+                    <label>Título da Bolsa:</label>
+                    <input name="titulo" class="form-control" placeholder="Título" type="text" required autofocus="on">
+                </div>
+
+                <div class="form-group form-row">
+                    <div class="col">
+                        <label>Modalidade:</label>
+                        <select name="modalidade" class="custom-select">
+                            <option>Iniciação Científica</option>
+                            <option>Treinamento Profissional</option>
+                            <option>Empresa Junior</option>
+                            <option>Estágio</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label>Carga Horária Semanal</label>
+                        <input name="carga_horaria" class="form-control" placeholder="XX h" type="text" required>
+                    </div>
+                    <div class="col">
+                        <label>Remuneração</label>
+                        <input name="remuneracao" class="form-control" placeholder="R$ XXX,XX" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Departamento:</label>
+                    <input name="departamento" class="form-control" placeholder="Departamento" type="text" required>
+                </div>
+
+                <div class="form-group form-row">
+                    <div class="col">
+                        <label>Data de início:</label>
+                        <input name="dataInicio" type="text" class="form-control" placeholder="DD/MM/YYYY" required>
+                    </div>
+                    <div class="col">
+                        <label>Data de termino:</label>
+                        <input name="dataFim" type="text" class="form-control" placeholder="DD/MM/YYYY" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Descrição:</label>
+                    <textarea name="descricao" class="md-textarea form-control" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Processo de seleção:</label>
+                    <textarea name="selecao" class="md-textarea form-control" rows="4"></textarea>
+                </div>
+
+                <input type="submit" name="Register" value="Enviar" class="btn btn-primary" required>
+            </form>
+        </div>
+    </body>
+
+</html>

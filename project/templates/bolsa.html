@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Página da Bolsa</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bolsa.css') }}">
+    </head>
+    
+    <body>
+        <div class="container">
+
+            <!-- Titulo -->
+            <div class="jumbotron header" style="background-color: #D32F2F">
+                <!-- <h2>Bolsa bem legal de verdade mesmo</h2> -->
+                <h2>{{ titulo }}</h2>
+                <!-- <p class="lead"> Iniciação Científica | Departamento de Ciência da Computação</p> -->
+                <p class="lead"> {{ modalidade }} | {{ departamento }}</p>
+            </div>
+            <div class="content">
+                <hr>
+
+                <!-- Sobre a Bolsa -->
+                <h3>Sobre a bolsa:</h3>
+
+                <div class="row">
+                    <aside class="col-sm-3">
+                        <div class="mb8">
+                            <span><b>Tipo: </b></span>
+                            <!-- <span>Iniciação Científica</span> -->
+                            <span>{{ modalidade }}</span>
+
+                        </div>
+                        <div class="mb8">
+                            <span><b>Carga Horária: </b></span>
+                            <!-- <span>20 h</span> -->
+                            <span>{{ carga_horaria }}</span>
+
+                        </div>
+                        <div class="mb8">
+                            <span><b>Remuneração: </b></span>
+                            <!-- <span>R$ 400,00</span> -->
+                            <span>{{ remuneracao }}</span>
+
+                        </div>
+                    </aside>
+
+                    <aside class="col-sm-3 col-sm-6">
+                        <div class="mb8">
+                            <span><b>Departamento: </b></span>
+                            <!-- <span>Artes e Design</span> -->
+                            <span>{{ departamento }}</span>
+
+                        </div>
+                        <div class="mb8">
+                            <span><b>Professor/Servidor: </b></span>
+                            <span> <a href = "/Prof.html">Gorobina de Jesus </a></span>
+                        </div>
+                        <div class="mb8">
+                            <span><b>Duração: </b></span>
+                            <!-- <span>03/2048 - 03/2049</span> -->
+                            <span>{{ dataInicio }} - {{ dataFim }}</span>
+
+                        </div>
+                    </aside>
+                </div>
+
+                <hr>
+
+                <h3>Descrição:</h3>
+                <!-- <p>Cras sit amet nibh libero, in gravida nulla.
+                    Nulla vel metus scelerisque ante sollicitudin commodo.
+                    Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                    Fusce condimentum nunc ac nisi vulputate fringilla.
+                    Donec lacinia congue felis in faucibus.
+                    Além disso ela é bem legal mesmo, pode confiar. :)
+                </p> -->
+                <p>{{ descricao }}</p>
+
+                <h3>Processo de Seleção:</h3>
+                <!-- <p>Cras sit amet nibh libero, in gravida nulla.
+                    Nulla vel metus scelerisque ante sollicitudin commodo.
+                    Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                    Fusce condimentum nunc ac nisi vulputate fringilla.
+                    Donec lacinia congue felis in faucibus.
+                    Vai dar tudo certo!
+                </p> -->
+                <p>{{ selecao }}</p>
+
+                <h3>Datas:</h3>
+                <div class="mb8">
+                    <span><b>Inscrição: </b></span>
+                    <span>Data: 12/12/2012 à 24/12/2012</span>
+                </div>
+                <div class="mb8">
+                    <span><b>Entrevista: </b></span>
+                    <span>Data: 25/12/2012 23:00 Local: DCC</span>
+                </div>
+                <div class="mb8">
+                    <span><b>Divulgação do Resultado: </b></span>
+                    <span>Data: 26/12/2012</span>
+                </div>
+
+                <hr>
+
+                <button type="button" class="btn btn-danger btn-lg">Inscrever</button>
+            </div>
+
+
+        </div>
+
+    </body>
+</html>
