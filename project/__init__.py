@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session
 from flask_session import Session
-import json
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy import delete, insert, update
@@ -9,10 +9,44 @@ from sqlalchemy import delete, insert, update
 app = Flask(__name__)
 
 # Configure the database
-app.config.from_pyfile('/home/victor/Documentos/Modelagem_Sistemas/trab/project/app.cfg')
+app.config.from_pyfile('/home/victor/Documentos/Modelagem_Sistemas/BolsasUFJF/project/app.cfg')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-# @app.route('/')
-# def index():
-#     return render_template('formBolsa.html')
+# configurate sessions
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+from models import Bolsa
+
+@app.route('/bolsa/<int:bolsa_id>')
+def bolsa(bolsa_id):
+    # Request dos dados pro banco
+    bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
+
+    return render_template('bolsa.html', bolsa=bolsa)
+
+@app.route('/formbolsa', methods=['GET','POST'])
+def formBolsa():
+
+    if request.method == 'POST':
+        # dados do formulário
+        dados = request.form.copy()
+
+        # Convertendo de string para datetime
+        dados['dataInicio'] = datetime.strptime(dados['dataInicio'], '%d/%m/%Y')
+        dados['dataFim'] = datetime.strptime(dados['dataFim'], '%d/%m/%Y')
+
+        # Adicionando dados na tabela de bolsas
+        bolsa = Bolsa(**dados)
+        db.session.add(bolsa)
+        db.session.commit()
+
+        return redirect(url_for('bolsa', id=bolsa.id))
+    else:
+        return render_template('formBolsa.html')

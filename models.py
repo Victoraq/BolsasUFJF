@@ -1,5 +1,5 @@
 
-import db
+from project import db
 
 class Bolsa(db.Model):
     """Classe modelo para construção da tabela de Bolsas"""

@@ -14,9 +14,9 @@
             <!-- Titulo -->
             <div class="jumbotron header" style="background-color: #D32F2F">
                 <!-- <h2>Bolsa bem legal de verdade mesmo</h2> -->
-                <h2>{{ titulo }}</h2>
+                <h2>{{ bolsa.titulo }}</h2>
                 <!-- <p class="lead"> Iniciação Científica | Departamento de Ciência da Computação</p> -->
-                <p class="lead"> {{ modalidade }} | {{ departamento }}</p>
+                <p class="lead"> {{ bolsa.modalidade }} | {{ bolsa.departamento }}</p>
             </div>
             <div class="content">
                 <hr>
@@ -29,19 +29,19 @@
                         <div class="mb8">
                             <span><b>Tipo: </b></span>
                             <!-- <span>Iniciação Científica</span> -->
-                            <span>{{ modalidade }}</span>
+                            <span>{{ bolsa.modalidade }}</span>
 
                         </div>
                         <div class="mb8">
                             <span><b>Carga Horária: </b></span>
                             <!-- <span>20 h</span> -->
-                            <span>{{ carga_horaria }}</span>
+                            <span>{{ bolsa.carga_horaria }}</span>
 
                         </div>
                         <div class="mb8">
                             <span><b>Remuneração: </b></span>
                             <!-- <span>R$ 400,00</span> -->
-                            <span>{{ remuneracao }}</span>
+                            <span>{{ bolsa.remuneracao }}</span>
 
                         </div>
                     </aside>
@@ -50,7 +50,7 @@
                         <div class="mb8">
                             <span><b>Departamento: </b></span>
                             <!-- <span>Artes e Design</span> -->
-                            <span>{{ departamento }}</span>
+                            <span>{{ bolsa.departamento }}</span>
 
                         </div>
                         <div class="mb8">
@@ -60,7 +60,7 @@
                         <div class="mb8">
                             <span><b>Duração: </b></span>
                             <!-- <span>03/2048 - 03/2049</span> -->
-                            <span>{{ dataInicio }} - {{ dataFim }}</span>
+                            <span>{{ bolsa.dataInicio }} - {{ bolsa.dataFim }}</span>
 
                         </div>
                     </aside>
@@ -76,7 +76,7 @@
                     Donec lacinia congue felis in faucibus.
                     Além disso ela é bem legal mesmo, pode confiar. :)
                 </p> -->
-                <p>{{ descricao }}</p>
+                <p>{{ bolsa.descricao }}</p>
 
                 <h3>Processo de Seleção:</h3>
                 <!-- <p>Cras sit amet nibh libero, in gravida nulla.
@@ -86,7 +86,7 @@
                     Donec lacinia congue felis in faucibus.
                     Vai dar tudo certo!
                 </p> -->
-                <p>{{ selecao }}</p>
+                <p>{{ bolsa.selecao }}</p>
 
                 <h3>Datas:</h3>
                 <div class="mb8">
