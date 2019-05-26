@@ -60,7 +60,7 @@
                         <div class="mb8">
                             <span><b>Duração: </b></span>
                             <!-- <span>03/2048 - 03/2049</span> -->
-                            <span>{{ bolsa.dataInicio }} - {{ bolsa.dataFim }}</span>
+                            <span>{{ bolsa.dataInicio.strftime('%d/%m/%Y') }} - {{ bolsa.dataFim.strftime('%d/%m/%Y') }}</span>
 
                         </div>
                     </aside>
