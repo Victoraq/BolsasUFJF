@@ -47,6 +47,6 @@ def formBolsa():
         db.session.add(bolsa)
         db.session.commit()
 
-        return redirect(url_for('bolsa', id=bolsa.id))
+        return redirect(url_for('bolsa', bolsa_id=bolsa.id))
     else:
         return render_template('formBolsa.html')

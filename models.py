@@ -1,5 +1,6 @@
 
 from project import db
+from bleach import clean
 
 class Bolsa(db.Model):
     """Classe modelo para construção da tabela de Bolsas"""
@@ -18,12 +19,12 @@ class Bolsa(db.Model):
     def __init__(self, titulo, modalidade, carga_horaria, remuneracao,
                  departamento, dataInicio, dataFim, descricao, selecao):
         """Constructor."""
-        self.titulo = titulo
-        self.modalidade = modalidade
-        self.carga_horaria = carga_horaria
-        self.remuneracao = remuneracao
-        self.departamento = departamento
+        self.titulo = clean(titulo)
+        self.modalidade = clean(modalidade)
+        self.carga_horaria = clean(carga_horaria)
+        self.remuneracao = clean(remuneracao)
+        self.departamento = clean(departamento)
         self.dataInicio = dataInicio
         self.dataFim = dataFim
-        self.descricao = descricao
-        self.selecao = selecao
+        self.descricao = clean(descricao)
+        self.selecao = clean(selecao)
