@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang= 'pt'>
+	<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<title>Cadastro Aluno</title>
+			<meta name = "author" content="Renan Nunes, Victor Aquiles, Thiago Guimarães"/>
+
+
+		<link rel="stylesheet" href="C:\Users\Renan\Documents\GitHub\BolsasUFJF\project\static\styles\css\cadastroAluno.css">
+	</head>
+	
+	<body>
+
+		<div class = "container">
+
+			<h1 class = "header"> Formulário de Cadastro para Alunos</h1>
+
+			<from id = "alunoForm" action = "\cadastroAluno" method = "POST">
+				<div class = "form-group">
+					<label>Nome:</label>
+					<input name="Nome" class="form-control" placeholder="Nome" type="text" required autofocus="on">
+					<label>Telefone:</label>
+					<input name="Telefone" class="form-control" placeholder="(xx) xxxxx-xxxx" type="text" required autofocus="on">
+					<label>Matrícula:</label>
+					<input name="matricula" class="form-control" placeholder="Matrícula" type="text" required autofocus="on">
+					<label>Indice de Rendimento Acadêmico:</label>
+					<input name="Indice de rendimento academico" class="form-control" placeholder="IRA" type="text" required autofocus="on">
+					<label>E-mail:</label>
+					<input name="email" class="form-control" placeholder="exemplo@exemplo.com" type="text" required autofocus="on">
+				</div>
+
+				<div class="form-group form-row">
+                    <div class="form-gen">
+                        <label>Gênero:</label>
+                        <select name="modalidade" class="custom-select">
+                            <option>Homem</option>
+                            <option>Mulher</option>
+                            <option>Outro</option>
+                        </select>
+                    </div>
+                 </div>
+
+
+		</div>
+
+	</body>
+
+</html>

@@ -11,7 +11,8 @@ a:hover{
 	text-decoration: underline;
 }
 
-/*grid de 960px*/
+/*Grid de 968px*/
+
 .linha{
 	width: 960px;
 	margin: 0 auto;
@@ -20,9 +21,10 @@ a:hover{
 }
 
 .coluna{
-	padding: 0 10px;
+	padding: 0 15px;
 	float left: 
 }
+
 
 .col1{
 	width: 60px;
@@ -72,7 +74,7 @@ a:hover{
 	width: 940px;
 }
 
-/*Estilos reutilizaveis	*/
+/*Estilos reutilizaveis*/
 .sem-padding{
 	padding: 0 !important;
 }
@@ -81,14 +83,16 @@ a:hover{
 	margin: 0 !important;
 }
 
+
 h1,h2,h3,h4,h5,h6{
 	font-weight: 500;
 	margin: 15px 0 10px 0;
 }
 
 ul li,ol li{
-	margin-bottom: 5px; 
+	margin-bottom: 10px; 
 }
+
 
 ul.inline li, ol.inline li{
 	display: inline;
@@ -96,7 +100,7 @@ ul.inline li, ol.inline li{
 }
 
 ul.inline li:last-child, ol.inline li:last-child{
-	margin-right: 0; 
+	margin-right: 30; 
 }
 
 ul.sem-marcador,ol.sem-marcador{
@@ -119,20 +123,17 @@ a.botao:hover, input.botao:hover{
 	text-decoration: none;
 }
 
-img{
-	max-width: 100%;
-	height: auto;
-}
+/*Layout do Site*/
 
-/*layout do site*/
-.header{
-	background: #ff4040;
+.header {
+	background-color: #cc0000;
 }
 
 h1.logo{
-	font-weight: 100;
+	font-weight: 300;
 	color: #f5f5f5;
 	letter-spacing: -2px;
+	text-align: center; 
 }
 
 .conteudo-extra{
@@ -149,8 +150,8 @@ h1.logo{
 
 .menu{
 	text-transform: uppercase;
-	text-align: right;
-	margin-top: 20px; 
+	text-align: center;
+	margin-top: 20px;
 }
 
 .menu li a{
