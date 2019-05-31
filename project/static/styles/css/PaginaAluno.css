@@ -22,9 +22,9 @@ body{
 	font-weight: 100;
 }
 
-.aside{
-	float: right;
+.centraliza-tudo{
 	text-align: center;
-	padding: 200px 140px;
-	background: #e14328;
+	background: #DCDCDC;
+	margin: auto;
+	padding: 100px 150px;
 }
