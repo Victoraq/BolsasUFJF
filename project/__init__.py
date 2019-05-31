@@ -4,6 +4,8 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy import delete, insert, update
+# import flask_login
+from flask_user import roles_required
 
 # Configure app
 app = Flask(__name__)
@@ -24,14 +26,18 @@ def index():
 
 from models import Bolsa
 
-@app.route('/bolsa/<int:bolsa_id>')
+@app.route('/bolsa/<int:bolsa_id>', methods=['GET','POST'])
 def bolsa(bolsa_id):
     # Request dos dados pro banco
     bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
 
-    return render_template('bolsa.html', bolsa=bolsa)
+    if request.method == 'GET':
+        return render_template('bolsa.html', bolsa=bolsa)
+    else:
+        return redirect(url_for('inscricao', bolsa_id=bolsa_id))
 
 @app.route('/formbolsa', methods=['GET','POST'])
+# @roles_required(['Professor']) # Para abrir página o usuário deve estar logado como aluno.
 def formBolsa():
 
     if request.method == 'POST':
@@ -50,3 +56,17 @@ def formBolsa():
         return redirect(url_for('bolsa', bolsa_id=bolsa.id))
     else:
         return render_template('formBolsa.html')
+
+@app.route('/inscricaoBolsa/<int:bolsa_id>')
+# @roles_required(['Aluno']) # Para abrir página o usuário deve estar logado como aluno.
+def inscricaoBolsa(bolsa_id):
+    # Request dos dados pro banco
+    bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
+
+    if request.method == 'POST':
+        # dados do formulário
+        dados = request.form.copy()
+
+        # Adicionando dados na tabela de bolsas
+        data = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        inscricao = inscricaoBolsa(aluno_id, bolsa_id, data, dados['anexo'])
