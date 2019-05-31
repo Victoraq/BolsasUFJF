@@ -4,6 +4,8 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy import delete, insert, update
+from flask_login import current_user
+from flask_user import roles_required
 
 # Configure app
 app = Flask(__name__)
@@ -22,16 +24,45 @@ Session(app)
 def index():
     return render_template('index.html')
 
-from models import Bolsa
+from models import Bolsa, InscricaoBolsa
 
-@app.route('/bolsa/<int:bolsa_id>')
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/bolsa/<int:bolsa_id>', methods=['GET','POST'])
 def bolsa(bolsa_id):
-    # Request dos dados pro banco
+    # Request dos dados da bolsa no banco
     bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
 
-    return render_template('bolsa.html', bolsa=bolsa)
+    if request.method == 'GET':
+        return render_template('bolsa.html', bolsa=bolsa)
+    
+    else:
+        if current_user.is_authenticated:
+            aluno_id = current_user.get_id()                    # id do aluno logado
+
+            data = datetime.now() # data de inscrição
+
+            # anexo submetido
+            anexo = request.files['anexo']
+            path = f"/home/victor/Documentos/Modelagem_Sistemas/BolsasUFJF/project/data/curriculos/cur_{aluno_id}_{bolsa_id}.pdf"
+            anexo.save(path)
+
+            # Adicionando inscrição a tabela
+            inscricao = InscricaoBolsa(aluno_id, bolsa_id, data, path)
+            db.session.add(inscricao)
+            db.session.commit()
+
+            return render_template('/index.html')
+
+        else:
+            return redirect(url_for('login'))
+
+        # return redirect(url_for('inscricao', bolsa_id=bolsa_id))
 
 @app.route('/formbolsa', methods=['GET','POST'])
+# @roles_required(['Professor']) # Para abrir página o usuário deve estar logado como professor.
 def formBolsa():
 
     if request.method == 'POST':

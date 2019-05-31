@@ -15,9 +15,10 @@ class Bolsa(db.Model):
     dataFim = db.Column(db.DateTime)
     descricao = db.Column(db.Text)
     selecao = db.Column(db.Text)
+    ativa = db.Column(db.Boolean)
 
     def __init__(self, titulo, modalidade, carga_horaria, remuneracao,
-                 departamento, dataInicio, dataFim, descricao, selecao):
+                 departamento, dataInicio, dataFim, descricao, selecao, ativa=True):
         """Constructor."""
         self.titulo = clean(titulo)
         self.modalidade = clean(modalidade)
@@ -28,6 +29,7 @@ class Bolsa(db.Model):
         self.dataFim = dataFim
         self.descricao = clean(descricao)
         self.selecao = clean(selecao)
+        self.ativa = ativa
 
 
 class Aluno(db.Aluno):
@@ -62,3 +64,18 @@ class Aluno(db.Aluno):
         self.senha = clean(senha)
     
     
+class InscricaoBolsa(db.Model):
+    """ Classe modelo para construção da tabela de inscrições de bolsa """
+
+    id = db.Column(db.Integer, primary_key = True)
+    id_aluno = db.Column(db.Integer)
+    id_bolsa = db.Column(db.Integer)
+    data = db.Column(db.DateTime)
+    anexo = db.Column(db.Text)
+
+    def __init__(self, id_aluno, id_bolsa, data, anexo):
+        """Constructor."""
+        self.id_aluno = id_aluno
+        self.id_bolsa = id_bolsa
+        self.data = data
+        self.anexo = anexo
