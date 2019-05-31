@@ -4,7 +4,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy import delete, insert, update
-# import flask_login
+from flask_login import current_user
 from flask_user import roles_required
 
 # Configure app
@@ -24,20 +24,45 @@ Session(app)
 def index():
     return render_template('index.html')
 
-from models import Bolsa
+from models import Bolsa, InscricaoBolsa
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 @app.route('/bolsa/<int:bolsa_id>', methods=['GET','POST'])
 def bolsa(bolsa_id):
-    # Request dos dados pro banco
+    # Request dos dados da bolsa no banco
     bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
 
     if request.method == 'GET':
         return render_template('bolsa.html', bolsa=bolsa)
+    
     else:
-        return redirect(url_for('inscricao', bolsa_id=bolsa_id))
+        if current_user.is_authenticated:
+            aluno_id = current_user.get_id()                    # id do aluno logado
+
+            data = datetime.now() # data de inscrição
+
+            # anexo submetido
+            anexo = request.files['anexo']
+            path = f"/home/victor/Documentos/Modelagem_Sistemas/BolsasUFJF/project/data/curriculos/cur_{aluno_id}_{bolsa_id}.pdf"
+            anexo.save(path)
+
+            # Adicionando inscrição a tabela
+            inscricao = InscricaoBolsa(aluno_id, bolsa_id, data, path)
+            db.session.add(inscricao)
+            db.session.commit()
+
+            return render_template('/index.html')
+
+        else:
+            return redirect(url_for('login'))
+
+        # return redirect(url_for('inscricao', bolsa_id=bolsa_id))
 
 @app.route('/formbolsa', methods=['GET','POST'])
-# @roles_required(['Professor']) # Para abrir página o usuário deve estar logado como aluno.
+# @roles_required(['Professor']) # Para abrir página o usuário deve estar logado como professor.
 def formBolsa():
 
     if request.method == 'POST':
@@ -56,17 +81,3 @@ def formBolsa():
         return redirect(url_for('bolsa', bolsa_id=bolsa.id))
     else:
         return render_template('formBolsa.html')
-
-@app.route('/inscricaoBolsa/<int:bolsa_id>')
-# @roles_required(['Aluno']) # Para abrir página o usuário deve estar logado como aluno.
-def inscricaoBolsa(bolsa_id):
-    # Request dos dados pro banco
-    bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
-
-    if request.method == 'POST':
-        # dados do formulário
-        dados = request.form.copy()
-
-        # Adicionando dados na tabela de bolsas
-        data = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        inscricao = inscricaoBolsa(aluno_id, bolsa_id, data, dados['anexo'])

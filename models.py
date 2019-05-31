@@ -37,8 +37,8 @@ class InscricaoBolsa(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     id_aluno = db.Column(db.Integer)
     id_bolsa = db.Column(db.Integer)
-    data = db.Column(db.Datetime)
-    anexo = db.Column(db.Blob)
+    data = db.Column(db.DateTime)
+    anexo = db.Column(db.Text)
 
     def __init__(self, id_aluno, id_bolsa, data, anexo):
         """Constructor."""
