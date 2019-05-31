@@ -50,3 +50,22 @@ def formBolsa():
         return redirect(url_for('bolsa', bolsa_id=bolsa.id))
     else:
         return render_template('formBolsa.html')
+
+@app.route('/formGen',method =['GET','POST'])
+def formGen():
+    
+    if request.method == 'POST':
+        #dados do cadastro
+        dados = resquest.form.copy()
+        
+        #convertendo de String para datatime
+        dados['nascimento'] = datetime.strptime(dados['nascimento'], '%d%m%Y')
+        
+        # Adicionando dados na tabela de cadastro
+        bolsa = Bolsa(**dados)
+        db.session.add()
+        db.session.commit()
+        
+        return redirect(url_for('',))
+    else:
+        return render_template('Index')
