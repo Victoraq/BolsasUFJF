@@ -39,9 +39,10 @@ def bolsa(bolsa_id):
         return render_template('bolsa.html', bolsa=bolsa)
     
     else:
-        if current_user.is_authenticated:
-            aluno_id = current_user.get_id()  # id do aluno logado
-
+        # if current_user.is_authenticated:
+        if True: # linha de teste
+            # aluno_id = current_user.id  # id do aluno logado
+            aluno_id = 1 # linha de teste
             data = datetime.now() # data de inscrição
 
             # anexo submetido
@@ -55,7 +56,7 @@ def bolsa(bolsa_id):
             db.session.add(inscricao)
             db.session.commit()
 
-            return render_template('/index.html')
+            return render_template('/inscricaoConcluida.html')
 
         else:
             return redirect(url_for('login'))

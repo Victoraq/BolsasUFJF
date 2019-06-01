@@ -1,5 +1,95 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
 
-{% block body %}
-<a href="/formbolsa">index</p>
-{% endblock %}
+<html  lang= 'pt'>
+	<head>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Página Inicial</title>
+		<meta name = "description" content="Projeto de Classificado de Bolsas feito por alunos da UFJF." />
+		<meta name = "keywords" content="Bolsas, Projeto de Extensão, Alunos, UFJF" />
+		<meta name = "author" content="Renan Nunes, Victor Aquiles, Thiago Guimarães"/>
+
+		<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+
+		<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/paginaInicial.css') }}">
+
+	</head>
+
+	<body>
+		<div class = "container">
+			<div class = "jumbotron header">
+				<div class = "linha">
+					<header>
+							<h1 class = "logo">UFJF - Classificado de Bolsas</h1>
+						<nav>
+							
+							<ul class = "menu inline sem-marcador">
+								<li><a href="">Home</a></li>
+								<li><a href="">Alunos</a></li>
+								<li><a href="">Professores</a></li>
+								<li><a href="">Cadastre-se</a></li>
+								<li><a href="">Contato</a></li>
+							</ul>
+
+						</nav>
+
+					</header>
+				</div>
+			</div>
+
+			<div class = "linha">
+				<section>
+					<div class = "coluna">
+						<h2>Ultimas Adicionadas</h2>
+						<ul class = "list-group sem-marcador">
+								<li class = "list-group-item"><a href="">Pesquisa Operacional em redes complexas</a></li>
+								<li class = "list-group-item"><a href="">A saúde sexual entre jovens adultos</a></li>
+								<li class = "list-group-item"><a href="">O Papel do relevo no escoamento de água</a></li>
+								<li class = "list-group-item"><a href="">Novos químicos e suas utilidades</a></li>
+						</ul>
+						<a href="bolsas.html" class = "botao">Ver todos &raquo;</a>
+					</div>
+					<div class = "coluna">
+							<h3>Ultima em monitorias: </h3>
+							<img src = "{{ url_for('static',filename='styles/img/encher_linguica') }}" alt = "Exatas">
+						</div>
+				</section>
+
+
+			</div>
+			
+			<div class = "conteudo-extra">
+				<div class = "linha">
+					<div class = "coluna col7">
+						<section>
+							<p>A Importância de um projeto de classificação de bolsa para o Campus da Universidade Federal de Juiz de Fora e a possibilidade do acesso gratuito a todos os alunos surgiu da ideia de três jovens ao notarem a necessidade de uma modernização no sistema de divulgação adotado por boa parte da universidade. </p>
+						</section>
+					</div>
+					
+					<div class="coluna col5">
+						<h3>Ultimas notícias</h3>
+						<ul class = "sem-marcador sem-padding notícias">
+							<li><a href="">Professor é prêmiado com pesquisa sobre dengue</a></li>
+							<li><a href="">A Importância da preservação das comunidades ribeirinhas</a></li>
+							<li><a href="">A pesquisa nutricional no RU</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+
+			<div class = "footer">
+
+				<div class = "linha">
+					<footer>
+						<div class = "coluna col12">
+							<span>&copy; 2019 - BolsasUFJF</span>
+						</div>
+					</footer>
+				</div>
+
+			</div>
+		</div>
+	</body>
+</html>
