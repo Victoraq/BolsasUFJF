@@ -45,9 +45,10 @@ def bolsa(bolsa_id):
             data = datetime.now() # data de inscrição
 
             # anexo submetido
-            anexo = request.files['anexo']
-            path = f"/home/victor/Documentos/Modelagem_Sistemas/BolsasUFJF/project/data/curriculos/cur_{aluno_id}_{bolsa_id}.pdf"
-            anexo.save(path)
+            path = app.config["SOURCE_PATH"]+"project/data/curriculos/cur_{}_{}.pdf".format(aluno_id, bolsa_id)
+
+            request.files['anexo'].save(path)
+            # anexo.save(path)
 
             # Adicionando inscrição a tabela
             inscricao = InscricaoBolsa(aluno_id, bolsa_id, data, path)

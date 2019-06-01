@@ -1,6 +1,7 @@
 
 from project import db
 from bleach import clean
+from sqlalchemy import UniqueConstraint
 
 class Bolsa(db.Model):
     """Classe modelo para construção da tabela de Bolsas"""
@@ -72,6 +73,8 @@ class InscricaoBolsa(db.Model):
     id_bolsa = db.Column(db.Integer)
     data = db.Column(db.DateTime)
     anexo = db.Column(db.Text)
+
+    __table_args__ = (UniqueConstraint('id_aluno', 'id_bolsa', name='inscricao_unica'),)
 
     def __init__(self, id_aluno, id_bolsa, data, anexo):
         """Constructor."""
