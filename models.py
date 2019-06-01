@@ -1,6 +1,7 @@
 
 from project import db
 from bleach import clean
+from sqlalchemy import UniqueConstraint
 
 class Bolsa(db.Model):
     """Classe modelo para construção da tabela de Bolsas"""
@@ -31,6 +32,39 @@ class Bolsa(db.Model):
         self.selecao = clean(selecao)
         self.ativa = ativa
 
+
+class Aluno(db.Model):
+    "Classe de Controle de Alunos registrado na aplicação"
+    
+    id = db.Column(db.Integer, primary_key = True)
+    nome = db.Column(db.Text)
+    sobrenome = db.Column (db.Text)
+    telefone = db.Column(db.Text, unique = True)
+    email = db.Column(db.Text, unique = True)
+    nascimento = db.Column(db.DateTime)
+    periodo = db.Column (db.Integer)
+    matricula = db.Column (db.String(8))
+    curso = db.Column(db.Integer)
+    username = db.Column(db.String, unique = True)
+    senha = db.Column(db.String(20))
+    
+    def _init_(self, id, nome,sobrenome,telefone,email,nascimento,periodo,
+               matricula,chave,username,senha):
+        """Constructor"""
+        
+        self.id = clean(id)
+        self.nome = clean(nome)
+        self.sobrenome = clean(sobrenome)
+        self.telefone = clean(telefone)
+        self.email = clean(email)
+        self.nascimento = clean(nascimento)
+        self.periodo = clean(periodo)
+        self.matricula= clean(matricula)
+        self.curso = clean(curso)
+        self.username = clean(username)
+        self.senha = clean(senha)
+    
+    
 class InscricaoBolsa(db.Model):
     """ Classe modelo para construção da tabela de inscrições de bolsa """
 
@@ -39,6 +73,8 @@ class InscricaoBolsa(db.Model):
     id_bolsa = db.Column(db.Integer)
     data = db.Column(db.DateTime)
     anexo = db.Column(db.Text)
+
+    __table_args__ = (UniqueConstraint('id_aluno', 'id_bolsa', name='inscricao_unica'),)
 
     def __init__(self, id_aluno, id_bolsa, data, anexo):
         """Constructor."""

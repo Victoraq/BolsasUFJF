@@ -1,0 +1,16 @@
+body{
+
+	font-family: 'Roboto', sans-serif;
+	color: #333;
+	margin: 50px 120px 50px 100px;
+}
+
+.header {
+	font-weight: 700;
+	letter-spacing: -2px;
+	text-align: center; 
+}
+
+.col{
+	margin: 15px 0;
+}

@@ -11,7 +11,7 @@ from flask_user import roles_required
 app = Flask(__name__)
 
 # Configure the database
-app.config.from_pyfile('/home/victor/Documentos/Modelagem_Sistemas/BolsasUFJF/project/app.cfg')
+app.config.from_pyfile('app.cfg')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -40,14 +40,15 @@ def bolsa(bolsa_id):
     
     else:
         if current_user.is_authenticated:
-            aluno_id = current_user.get_id()                    # id do aluno logado
+            aluno_id = current_user.get_id()  # id do aluno logado
 
             data = datetime.now() # data de inscrição
 
             # anexo submetido
-            anexo = request.files['anexo']
-            path = f"/home/victor/Documentos/Modelagem_Sistemas/BolsasUFJF/project/data/curriculos/cur_{aluno_id}_{bolsa_id}.pdf"
-            anexo.save(path)
+            path = app.config["SOURCE_PATH"]+"project/data/curriculos/cur_{}_{}.pdf".format(aluno_id, bolsa_id)
+
+            request.files['anexo'].save(path)
+            # anexo.save(path)
 
             # Adicionando inscrição a tabela
             inscricao = InscricaoBolsa(aluno_id, bolsa_id, data, path)
