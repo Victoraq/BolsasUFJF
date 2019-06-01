@@ -32,7 +32,7 @@ class Bolsa(db.Model):
         self.ativa = ativa
 
 
-class Aluno(db.Aluno):
+class Aluno(db.Model):
     "Classe de Controle de Alunos registrado na aplicação"
     
     id = db.Column(db.Integer, primary_key = True)
