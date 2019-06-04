@@ -30,7 +30,7 @@ class Bolsa(db.Model):
         self.selecao = clean(selecao)
 
 
-class Aluno(db.Aluno):
+class Usuario(db.Usuario):
     "Classe de Controle de Alunos registrado na aplicação"
     
     id = db.Column(db.Integer, primary_key = True)
