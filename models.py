@@ -44,9 +44,10 @@ class Usuario(db.Usuario):
     curso = db.Column(db.Integer)
     username = db.Column(db.String, unique = True)
     senha = db.Column(db.String(20))
+    status = db.Column(db.Integer) #Se refere ao status de Professor ou Aluno, um boolean?#
     
     def _init_(self, id, nome,sobrenome,telefone,email,nascimento,periodo,
-               matricula,chave,username,senha):
+               matricula,chave,username,senha,status):
         """Constructor"""
         
         self.id = clean(id)
@@ -60,5 +61,22 @@ class Usuario(db.Usuario):
         self.curso = clean(curso)
         self.username = clean(username)
         self.senha = clean(senha)
-    
-    
+        self.status = clean(status)
+        
+class InscricaoBolsa(db.Model):
+    """ Classe modelo para construção da tabela de inscrições de bolsa """
+
+    id = db.Column(db.Integer, primary_key = True)
+    id_aluno = db.Column(db.Integer)
+    id_bolsa = db.Column(db.Integer)
+    data = db.Column(db.DateTime)
+    anexo = db.Column(db.Text)
+
+    __table_args__ = (UniqueConstraint('id_aluno', 'id_bolsa', name='inscricao_unica'),)
+
+    def __init__(self, id_aluno, id_bolsa, data, anexo):
+        """Constructor."""
+        self.id_aluno = id_aluno
+        self.id_bolsa = id_bolsa
+        self.data = data
+        self.anexo = anexo
