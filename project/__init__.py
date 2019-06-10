@@ -83,3 +83,36 @@ def formBolsa():
         return redirect(url_for('bolsa', bolsa_id=bolsa.id))
     else:
         return render_template('formBolsa.html')
+
+@app.route('/bolsas', methods=['GET','POST'])
+def feed():
+
+    if request.method == 'GET':
+
+        # Todas as bolsas disponíveis são mostradas
+        bolsas = Bolsa.query.order_by(Bolsa.id).all()
+
+        apresentacao = 'Lista das Bolsas ofertadas:'
+
+        return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
+    
+    else:
+
+        try:
+            busca = request.form['busca']
+        except:
+            busca = ''
+        
+        if busca == '':
+            # Todas as bolsas disponíveis são mostradas
+            bolsas = Bolsa.query.order_by(Bolsa.id).all()
+
+            apresentacao = f'Lista das Bolsas ofertadas:'        
+
+        else:
+            # filtra bolsas com string parecida com a buscada
+            bolsas = Bolsa.query.filter(Bolsa.titulo.like(f'%{busca}%')).all()
+
+            apresentacao = f'Lista das Bolsas ofertadas relacionadas a {busca}:'        
+
+        return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
