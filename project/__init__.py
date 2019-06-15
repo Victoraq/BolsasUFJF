@@ -33,7 +33,7 @@ def login():
 @app.route('/bolsa/<int:bolsa_id>', methods=['GET','POST'])
 def bolsa(bolsa_id):
     # Request dos dados da bolsa no banco
-    bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
+    bolsa = Bolsa.getBolsa(bolsa_id)
 
     if request.method == 'GET':
         return render_template('bolsa.html', bolsa=bolsa)
@@ -76,9 +76,7 @@ def formBolsa():
         dados['dataFim'] = datetime.strptime(dados['dataFim'], '%d/%m/%Y')
 
         # Adicionando dados na tabela de bolsas
-        bolsa = Bolsa(**dados)
-        db.session.add(bolsa)
-        db.session.commit()
+        bolsa = Bolsa.addBolsa(**dados)
 
         return redirect(url_for('bolsa', bolsa_id=bolsa.id))
     else:
@@ -90,7 +88,7 @@ def feed():
     if request.method == 'GET':
 
         # Todas as bolsas disponíveis são mostradas
-        bolsas = Bolsa.query.order_by(Bolsa.id).all()
+        bolsas = Bolsa.buscarBolsas()
 
         apresentacao = 'Lista das Bolsas ofertadas:'
 
@@ -105,13 +103,13 @@ def feed():
         
         if busca == '':
             # Todas as bolsas disponíveis são mostradas
-            bolsas = Bolsa.query.order_by(Bolsa.id).all()
+            bolsas = Bolsa.buscarBolsas()
 
             apresentacao = f'Lista das Bolsas ofertadas:'        
 
         else:
             # filtra bolsas com string parecida com a buscada
-            bolsas = Bolsa.query.filter(Bolsa.titulo.like(f'%{busca}%')).all()
+            bolsas = Bolsa.buscarBolsas(busca)
 
             apresentacao = f'Lista das Bolsas ofertadas relacionadas a {busca}:'        
 

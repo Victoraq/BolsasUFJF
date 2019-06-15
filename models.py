@@ -37,6 +37,36 @@ class Bolsa(db.Model):
         self.selecao = clean(selecao)
         self.ativa = ativa
 
+    def addBolsa(titulo, modalidade, carga_horaria, remuneracao, departamento, dataInicio, dataFim, descricao, selecao):
+        """ Armazena uma nova bolsa no banco de dados """
+
+        bolsa = Bolsa(titulo, modalidade, carga_horaria, remuneracao,
+                 departamento, dataInicio, dataFim, descricao, selecao)
+        
+        db.session.add(bolsa)
+        db.session.commit()
+
+        return bolsa
+
+    def getBolsa(bolsa_id):
+        """ Retorna bolsa com id passado como parâmetro """
+        bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
+
+        return bolsa
+
+    def buscarBolsas(busca=''):
+        """ Retorna todas as bolsas relacionadas a busca """
+        
+        if busca == '':
+            bolsas = Bolsa.query.order_by(Bolsa.id).all()
+            
+            return bolsas
+
+        else: 
+            bolsas = Bolsa.query.filter(Bolsa.titulo.like(f'%{busca}%')).all()
+
+            return bolsas
+
 
 class Aluno(db.Model):
     "Classe de Controle de Alunos registrado na aplicação"
