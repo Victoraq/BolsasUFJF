@@ -44,11 +44,25 @@
 					<div class = "coluna">
 						<h2>Ultimas Adicionadas</h2>
 						<ul class = "list-group sem-marcador">
-
-								<li class = "list-group-item"><a href="">Pesquisa Operacional em redes complexas</a></li>
+								<!--- Antigo --->
+								<!---<li class = "list-group-item"><a href="">Pesquisa Operacional em redes complexas</a></li>
 								<li class = "list-group-item"><a href="">A saúde sexual entre jovens adultos</a></li>
 								<li class = "list-group-item"><a href="">O Papel do relevo no escoamento de água</a></li>
-								<li class = "list-group-item"><a href="">Novos químicos e suas utilidades</a></li>
+								<li class = "list-group-item"><a href="">Novos químicos e suas utilidades</a></li>--->
+
+
+								{% for bolsa in bolsas %}
+					            	<a href="/bolsa/{{bolsa.id}}" class="list-group-item list-group-item-action flex-column align-items-start 
+					                {{'disabled' if not bolsa.ativa}}">
+	                    				<div class="d-flex w-100 justify-content-between">
+	                      					<h5 class="mb-1">{{bolsa.titulo}}</h5>
+	                    				</div>
+	                    				<p class="mb-1">{{bolsa.descricao}}</p>
+	                    				<small>{{bolsa.modalidade}}</small>
+                					</a>
+              					{% endfor %}
+
+
 						</ul>
 						<a href="/bolsas" class = "botao">Ver todos &raquo;</a>
 					</div>
