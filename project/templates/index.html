@@ -10,9 +10,10 @@
 		<meta name = "keywords" content="Bolsas, Projeto de Extensão, Alunos, UFJF" />
 		<meta name = "author" content="Renan Nunes, Victor Aquiles, Thiago Guimarães"/>
 
-		<link rel="stylesheet" href="C:\Users\Renan\Documents\GitHub\BolsasUFJF\project\static\styles\css\bootstrap.css">
+		<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
 
-		<link rel="stylesheet" href="C:\Users\Renan\Documents\GitHub\BolsasUFJF\project\static\styles\css\Index.css">
+		<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/paginaInicial.css') }}">
+
 
 	</head>
 
@@ -43,16 +44,17 @@
 					<div class = "coluna">
 						<h2>Ultimas Adicionadas</h2>
 						<ul class = "list-group sem-marcador">
-								<li class = "list-group-item"><a href="">{{Pesquisa Operacional em redes complexas}}</a></li>
-								<li class = "list-group-item"><a href="">{{A saúde sexual entre jovens adultos}}</a></li>
-								<li class = "list-group-item"><a href="">{{O Papel do relevo no escoamento de água}}</a></li>
-								<li class = "list-group-item"><a href="">{{Novos químicos e suas utilidades}}</a></li>
+
+								<li class = "list-group-item"><a href="">Pesquisa Operacional em redes complexas</a></li>
+								<li class = "list-group-item"><a href="">A saúde sexual entre jovens adultos</a></li>
+								<li class = "list-group-item"><a href="">O Papel do relevo no escoamento de água</a></li>
+								<li class = "list-group-item"><a href="">Novos químicos e suas utilidades</a></li>
 						</ul>
-						<a href="bolsas.html" class = "botao">Ver todos &raquo;</a>
+						<a href="/bolsas" class = "botao">Ver todos &raquo;</a>
 					</div>
 					<div class = "coluna">
 							<h3>Ultima em monitorias: </h3>
-							<img src = "C:\Users\Renan\Documents\GitHub\BolsasUFJF\project\static\styles\img\encher_linguica.jpg" alt = "Exatas">
+							<img src = "{{ url_for('static',filename='styles/img/encher_linguica') }}" alt = "Exatas">
 						</div>
 				</section>
 
