@@ -28,3 +28,23 @@ body{
 	margin: auto;
 	padding: 100px 150px;
 }
+
+.info{
+	text-align: left;
+	background: #DCDCDC;
+	margin: auto;
+	padding: 100px 150px;
+}
+
+
+}
+
+.container-fluid h1{
+
+	color: #EDEDED;
+	background-color: #E55448;
+	border-bottom-left-radius:  10px;
+	border-bottom-right-radius:  10px;
+	padding: 30px;
+
+}

@@ -1,0 +1,61 @@
+body {
+
+	background-color: #EBEBEB;
+
+}
+
+#profileImg {
+
+	height: 200px;
+	width: 300px;
+
+}
+
+#Titulo{
+
+	text-decoration: none;
+	font-size: 30px;
+	color: #EDEDED;
+
+}
+
+.container-fluid h1{
+
+	color: #EDEDED;
+	background-color: #E55448;
+	border-bottom-left-radius:  10px;
+	border-bottom-right-radius:  10px;
+	padding: 30px;
+
+}
+
+.info {
+
+	margin-top: 50px;
+
+}
+
+.info p{
+
+	font-family: 'Roboto', sans-serif;
+	font-style: italic;
+	font-size: 18px;
+	border: 2px outset #EDEDED;
+	border-radius: 10px;
+	padding: 5px;
+	margin-left: 20px;
+}
+
+.dropright button {
+
+	font-size: 20px;
+	margin-left: 20px;
+	margin-top: 30px;
+}
+
+.dropright a{
+
+	margin-right: 200px;
+	padding: 50px;
+
+}

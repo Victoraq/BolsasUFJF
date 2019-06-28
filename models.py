@@ -33,8 +33,10 @@ class Bolsa(db.Model):
         self.ativa = ativa
 
 
-class Aluno(db.Model):
-    "Classe de Controle de Alunos registrado na aplicação"
+
+class Usuario(db.Usuario):
+  
+    "Classe de Controle de Usuários registrado na aplicação"
     
     id = db.Column(db.Integer, primary_key = True)
     nome = db.Column(db.Text)
@@ -47,9 +49,10 @@ class Aluno(db.Model):
     curso = db.Column(db.Integer)
     username = db.Column(db.String, unique = True)
     senha = db.Column(db.String(20))
+    status = db.Column(db.Integer) #Se refere ao status de Professor ou Aluno, um boolean?#
     
     def _init_(self, id, nome,sobrenome,telefone,email,nascimento,periodo,
-               matricula,chave,username,senha):
+               matricula,chave,username,senha,status):
         """Constructor"""
         
         self.id = clean(id)
