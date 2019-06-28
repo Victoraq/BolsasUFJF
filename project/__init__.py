@@ -82,6 +82,7 @@ def formBolsa():
     else:
         return render_template('formBolsa.html')
 
+
 @app.route('/bolsas', methods=['GET','POST'])
 def feed():
 
@@ -114,3 +115,4 @@ def feed():
             apresentacao = f'Lista das Bolsas ofertadas relacionadas a {busca}:'        
 
         return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
+

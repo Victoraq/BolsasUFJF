@@ -18,3 +18,10 @@ def formBolsa():
     dados = db.session.query(Bolsa).all()
 
     return redirect(url_for('bolsa',dados=dados))
+
+
+@app.route('/formGen', methods = ['POST'])
+def formGen():
+    dados = db.session.query(Usuario).all()
+    
+    return redirect(url_for('cadastroGenerico',dados = dados))
