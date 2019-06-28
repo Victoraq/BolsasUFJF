@@ -54,14 +54,14 @@
 								<li class = "list-group-item"><a href="">Novos químicos e suas utilidades</a></li>--->
 
 
-								{% for bolsa in bolsas %}
+								{% for i in range(5):  %}
 					            	<a href="/bolsa/{{bolsa.id}}" class="list-group-item list-group-item-action flex-column align-items-start 
 					                {{'disabled' if not bolsa.ativa}}">
 	                    				<div class="d-flex w-100 justify-content-between">
-	                      					<h5 class="mb-1">{{bolsa.titulo}}</h5>
+	                      					<h5 class="mb-1">{{bolsa.getBolsa(i).titulo}}</h5>
 	                    				</div>
-	                    				<p class="mb-1">{{bolsa.descricao}}</p>
-	                    				<small>{{bolsa.modalidade}}</small>
+	                    				<p class="mb-1">{{bolsa.getBolsa(i).descricao}}</p>
+	                    				<small>{{bolsa.getBolsa(i).modalidade}}</small>
                 					</a>
               					{% endfor %}
 

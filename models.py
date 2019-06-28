@@ -54,7 +54,7 @@ class Bolsa(db.Model):
 
         return bolsa
 
-    def buscarBolsas(busca=''):
+    def buscarBolsas(busca=''): 
         """ Retorna todas as bolsas relacionadas a busca """
         
         if busca == '':
@@ -66,7 +66,12 @@ class Bolsa(db.Model):
             bolsas = Bolsa.query.filter(Bolsa.titulo.like(f'%{busca}%')).all()
 
             return bolsas
-
+    
+    def getTotalBolsas():
+        """ Retorna o número total de bolsas """
+        
+        return Bolsa.query.filter_by(..).order_by(sqlalchemy.desc(id=bolsa_id).first() - Bolsa.query.filter_by(..).order_by((sqlalchemy.asc(id=bolsa_id).first()
+        
 
 
 class Usuario(db.Usuario):
