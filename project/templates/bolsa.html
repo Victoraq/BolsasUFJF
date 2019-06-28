@@ -103,8 +103,18 @@
                 </div>
 
                 <hr>
+                <form id="bolsaForm" enctype=multipart/form-data method="POST">
+                    {% if current_user.is_authenticated %}
 
-                <button type="button" class="btn btn-danger btn-lg">Inscrever</button>
+                        <div class="form-group">
+                            <label for="anexo">Anexo:</label>
+                            <input type="file" class="form-control" id="anexo" name="anexo" required>
+                        </div>
+
+                    {% endif %}
+
+                    <input type="submit" value="Inscrever" class="btn btn-primary btn-danger btn-lg" required>
+                </form>
             </div>
 
 

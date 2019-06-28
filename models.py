@@ -1,6 +1,7 @@
 
 from project import db
 from bleach import clean
+from sqlalchemy import UniqueConstraint
 
 class Bolsa(db.Model):
     """Classe modelo para construção da tabela de Bolsas"""
@@ -15,9 +16,10 @@ class Bolsa(db.Model):
     dataFim = db.Column(db.DateTime)
     descricao = db.Column(db.Text)
     selecao = db.Column(db.Text)
+    ativa = db.Column(db.Boolean)
 
     def __init__(self, titulo, modalidade, carga_horaria, remuneracao,
-                 departamento, dataInicio, dataFim, descricao, selecao):
+                 departamento, dataInicio, dataFim, descricao, selecao, ativa=True):
         """Constructor."""
         self.titulo = clean(titulo)
         self.modalidade = clean(modalidade)
@@ -28,10 +30,13 @@ class Bolsa(db.Model):
         self.dataFim = dataFim
         self.descricao = clean(descricao)
         self.selecao = clean(selecao)
+        self.ativa = ativa
+
 
 
 class Usuario(db.Usuario):
-    "Classe de Controle de Alunos registrado na aplicação"
+  
+    "Classe de Controle de Usuários registrado na aplicação"
     
     id = db.Column(db.Integer, primary_key = True)
     nome = db.Column(db.Text)
@@ -61,8 +66,8 @@ class Usuario(db.Usuario):
         self.curso = clean(curso)
         self.username = clean(username)
         self.senha = clean(senha)
-        self.status = clean(status)
-        
+    
+    
 class InscricaoBolsa(db.Model):
     """ Classe modelo para construção da tabela de inscrições de bolsa """
 
