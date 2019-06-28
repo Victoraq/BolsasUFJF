@@ -27,10 +27,13 @@
 							
 							<ul class = "menu inline sem-marcador">
 								<li><a href="index.html">Home</a></li>
-								<li><a href="paginaAluno.html">Alunos</a></li>
-								<li><a href="paginaProfessor.html">Professores</a></li>
-								<li><a href="cadastroGenerico.html">Cadastre-se</a></li>
-								<li><a href="">Contato</a></li>
+								{% if (current user.authenticated == true) %}
+									<li><a href="paginaAluno.html">Alunos</a></li>
+									<li><a href="paginaProfessor.html">Professores</a></li>
+								{%else%}
+									<li><a href="cadastroGenerico.html">Cadastre-se</a></li>
+									<li><a href="">Login</a></li>
+								{% endif %}
 							</ul>
 
 						</nav>
