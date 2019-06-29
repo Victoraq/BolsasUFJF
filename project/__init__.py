@@ -38,10 +38,9 @@ def bolsa(bolsa_id):
         return render_template('bolsa.html', bolsa=bolsa)
     
     else:
-        # if current_user.is_authenticated:
-        if True: # linha de teste
-            # aluno_id = current_user.id  # id do aluno logado
-            aluno_id = 1 # linha de teste
+        if session['logged_in'] and session['aluno']:
+
+            aluno_id = session['user'].id # linha de teste
             data = datetime.now() # data de inscrição
 
             # anexo submetido
@@ -51,35 +50,43 @@ def bolsa(bolsa_id):
             # anexo.save(path)
 
             # Adicionando inscrição a tabela
+            # To-do: consertar inscrição
             inscricao = InscricaoBolsa(aluno_id, bolsa_id, data, path)
+            app.logger.info('aqui foi')
             db.session.add(inscricao)
             db.session.commit()
+            app.logger.info('aqui tambem foi')
 
             return render_template('/inscricaoConcluida.html')
-
-        else:
-            return redirect(url_for('login'))
+    
+    return render_template('/naoLogado.html')
 
         # return redirect(url_for('inscricao', bolsa_id=bolsa_id))
 
 @app.route('/formbolsa', methods=['GET','POST'])
-# @roles_required(['Professor']) # Para abrir página o usuário deve estar logado como professor.
 def formBolsa():
 
-    if request.method == 'POST':
-        # dados do formulário
-        dados = request.form.copy()
+    # só é possivel acessa a página se estiver logado e for professor
+    if session['logged_in'] and not session['aluno']:
 
-        # Convertendo de string para datetime
-        dados['dataInicio'] = datetime.strptime(dados['dataInicio'], '%d/%m/%Y')
-        dados['dataFim'] = datetime.strptime(dados['dataFim'], '%d/%m/%Y')
+        if request.method == 'POST':
+            # dados do formulário
+            dados = request.form.copy()
 
-        # Adicionando dados na tabela de bolsas
-        bolsa = Bolsa.addBolsa(**dados)
+            # Convertendo de string para datetime
+            dados['dataInicio'] = datetime.strptime(dados['dataInicio'], '%d/%m/%Y')
+            dados['dataFim'] = datetime.strptime(dados['dataFim'], '%d/%m/%Y')
 
-        return redirect(url_for('bolsa', bolsa_id=bolsa.id))
+            # Adicionando dados na tabela de bolsas
+            bolsa = Bolsa.addBolsa(**dados)
+
+            return redirect(url_for('bolsa', bolsa_id=bolsa.id))
+        else:
+            return render_template('formBolsa.html')
+
     else:
-        return render_template('formBolsa.html')
+        app.logger.info('acesso negado')
+        return index()
 
 @app.route('/bolsas', methods=['GET','POST'])
 def feed():
@@ -150,27 +157,30 @@ def login():
     if request.method == 'POST':
         # dados do formulário
         dados = request.form.copy()
+        
+        #Procurando usuario no banco de dados
         user = Usuario.query.filter_by(email=dados['email']).first()
-        app.logger.info(user)
+        
         if user:
             if user.password == dados['password']:
                 user.authenticated = True
-                db.session.add(user)
-                db.session.commit()
-                login_user(user, remember=True)
-                current_user = user # ainda não consigo pegar dados do current user
+                session['logged_in'] = True
+                session['aluno'] = user.aluno
+                session['user'] = user
 
-                return redirect(url_for("/")) # to-do: nao esta redirecionando nao sei porque
+                return index()
 
     return render_template("login.html")
 
 @app.route("/logout", methods=["GET"])
-@login_required
 def logout():
     """Logout the current user."""
-    user = current_user
+    user = session['user']
     user.authenticated = False
-    db.session.add(user)
-    db.session.commit()
-    logout_user()
-    return redirect(url_for("/"))
+
+    # Limpando sessao
+    session['logged_in'] = False
+    session['aluno'] = None
+    session['user'] = None
+
+    return index()
