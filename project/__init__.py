@@ -116,3 +116,12 @@ def feed():
 
         return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
 
+
+@app.route('/bolsas',methods=['GET'])
+def paginaAluno():
+    
+@app.route('')
+def paginaCadastro():
+    
+@app.route()
+def paginaProfessor():
