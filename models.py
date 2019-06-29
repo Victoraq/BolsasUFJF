@@ -67,12 +67,6 @@ class Bolsa(db.Model):
 
             return bolsas
     
-    def getTotalBolsas():
-        """ Retorna o número total de bolsas """
-        
-        return Bolsa.query.filter_by(..).order_by(sqlalchemy.desc(id=bolsa_id).first() - Bolsa.query.filter_by(..).order_by((sqlalchemy.asc(id=bolsa_id).first()
-        
-
 
 class Usuario(db.Model):
   
