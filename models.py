@@ -54,7 +54,7 @@ class Bolsa(db.Model):
 
         return bolsa
 
-    def buscarBolsas(busca=''):
+    def buscarBolsas(busca=''): 
         """ Retorna todas as bolsas relacionadas a busca """
         
         if busca == '':
@@ -66,10 +66,9 @@ class Bolsa(db.Model):
             bolsas = Bolsa.query.filter(Bolsa.titulo.like(f'%{busca}%')).all()
 
             return bolsas
+    
 
-
-
-class Usuario(db.Usuario):
+class Usuario(db.Model):
   
     "Classe de Controle de Usuários registrado na aplicação"
     
