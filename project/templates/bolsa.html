@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Página da Bolsa</title>
         <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bolsa.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/base.css') }}">
     </head>
     
     <body>
@@ -88,23 +88,10 @@
                 </p> -->
                 <p>{{ bolsa.selecao }}</p>
 
-                <h3>Datas:</h3>
-                <div class="mb8">
-                    <span><b>Inscrição: </b></span>
-                    <span>Data: 12/12/2012 à 24/12/2012</span>
-                </div>
-                <div class="mb8">
-                    <span><b>Entrevista: </b></span>
-                    <span>Data: 25/12/2012 23:00 Local: DCC</span>
-                </div>
-                <div class="mb8">
-                    <span><b>Divulgação do Resultado: </b></span>
-                    <span>Data: 26/12/2012</span>
-                </div>
 
                 <hr>
                 <form id="bolsaForm" enctype=multipart/form-data method="POST">
-                    {% if current_user.is_authenticated %}
+                    {% if True %}
 
                         <div class="form-group">
                             <label for="anexo">Anexo:</label>

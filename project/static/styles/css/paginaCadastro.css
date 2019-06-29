@@ -1,0 +1,81 @@
+body{
+
+	font-family: 'Roboto', sans-serif;
+	background-image: url(../img/ufjf.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+
+	font-family: 'Roboto', sans-serif;
+	color: #333;
+	margin: 50px 120px 50px 100px;
+}
+
+h1{
+
+	color: white;
+}
+
+.main-section{
+
+	margin: 0 auto;
+	margin-top: 130px;
+	padding:0;
+
+}
+
+.modal-content {
+
+	background-color: #E55448;
+	opacity: .8;
+	padding: 10px 18px;
+	border-radius: 10px;
+
+}
+
+.header {
+
+	padding: 10px;
+	font-weight: 700;
+	letter-spacing: -2px;
+	text-align: center; 
+}
+
+.col{
+
+	padding: 20px;
+	margin: 15px 0px;
+}
+
+.field{
+
+	color: white;
+	font-size: 22px;
+	margin-top:20px;
+
+}
+
+.form-input button {
+
+	width: 40%;
+	margin: 5px 0 25px;
+}
+
+.btn-success {
+
+	background-color: #473F3E; 
+	font-size: 19px;
+	border-radius: 5px;
+	padding: 7px 14px;
+	border : 1px solid #daf1ff;
+}
+
+.btn-succes:hover {
+
+	opacity: .0;
+	background-color: #13445e;
+	border: 1px solid #daf1ff;
+}
+
+.footer-copyright {
+	color: #EDEDED;
+}
