@@ -35,7 +35,14 @@ def bolsa(bolsa_id):
     bolsa = Bolsa.getBolsa(bolsa_id)
 
     if request.method == 'GET':
-        return render_template('bolsa.html', bolsa=bolsa)
+
+        prof = Usuario.query.filter_by(id=bolsa.prof_id).first()
+        if prof:
+            nome = prof.nome + " " + prof.sobrenome 
+        else: 
+            nome = 'Não disponivel'
+
+        return render_template('bolsa.html', bolsa=bolsa, nome=nome)
     
     else:
         if session['logged_in'] and session['aluno']:
@@ -47,15 +54,11 @@ def bolsa(bolsa_id):
             path = app.config["SOURCE_PATH"]+"project/data/curriculos/cur_{}_{}.pdf".format(aluno_id, bolsa_id)
 
             request.files['anexo'].save(path)
-            # anexo.save(path)
 
             # Adicionando inscrição a tabela
-            # To-do: consertar inscrição
             inscricao = InscricaoBolsa(aluno_id, bolsa_id, data, path)
-            app.logger.info('aqui foi')
             db.session.add(inscricao)
             db.session.commit()
-            app.logger.info('aqui tambem foi')
 
             return render_template('/inscricaoConcluida.html')
     
@@ -76,6 +79,9 @@ def formBolsa():
             # Convertendo de string para datetime
             dados['dataInicio'] = datetime.strptime(dados['dataInicio'], '%d/%m/%Y')
             dados['dataFim'] = datetime.strptime(dados['dataFim'], '%d/%m/%Y')
+            
+            #id do professor
+            dados['professor'] = int(session['user'].id)
 
             # Adicionando dados na tabela de bolsas
             bolsa = Bolsa.addBolsa(**dados)
@@ -85,7 +91,6 @@ def formBolsa():
             return render_template('formBolsa.html')
 
     else:
-        app.logger.info('acesso negado')
         return index()
 
 @app.route('/bolsas', methods=['GET','POST'])

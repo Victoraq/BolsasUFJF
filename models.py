@@ -1,4 +1,3 @@
-
 from project import db
 from bleach import clean
 from sqlalchemy import UniqueConstraint
@@ -21,10 +20,11 @@ class Bolsa(db.Model):
     dataFim = db.Column(db.DateTime)
     descricao = db.Column(db.Text)
     selecao = db.Column(db.Text)
+    prof_id = db.Column(db.Integer)
     ativa = db.Column(db.Boolean)
 
     def __init__(self, titulo, modalidade, carga_horaria, remuneracao,
-                 departamento, dataInicio, dataFim, descricao, selecao, ativa=True):
+                 departamento, dataInicio, dataFim, descricao, selecao, professor, ativa=True):
         """Constructor."""
         self.titulo = clean(titulo)
         self.modalidade = clean(modalidade)
@@ -35,13 +35,14 @@ class Bolsa(db.Model):
         self.dataFim = dataFim
         self.descricao = clean(descricao)
         self.selecao = clean(selecao)
+        self.prof_id = professor
         self.ativa = ativa
 
-    def addBolsa(titulo, modalidade, carga_horaria, remuneracao, departamento, dataInicio, dataFim, descricao, selecao):
+    def addBolsa(titulo, modalidade, carga_horaria, remuneracao, departamento, dataInicio, dataFim, descricao, professor, selecao):
         """ Armazena uma nova bolsa no banco de dados """
 
         bolsa = Bolsa(titulo, modalidade, carga_horaria, remuneracao,
-                 departamento, dataInicio, dataFim, descricao, selecao)
+                 departamento, dataInicio, dataFim, descricao, selecao, professor)
         
         db.session.add(bolsa)
         db.session.commit()
@@ -148,35 +149,29 @@ class InscricaoBolsa(db.Model):
         self.data = data
         self.anexo = anexo
 
-        # Enviando email para professor com dados da inscrição
-        self.emailDadosInscricao()
+        aluno = Usuario.query.filter_by(id=id_aluno).first()
+        bolsa = Bolsa.query.filter_by(id=id_bolsa).first()
+        prof = Usuario.query.filter_by(id=bolsa.prof_id).first()
 
-    def emailDadosInscricao(self):
+        # Enviando email para professor com dados da inscrição
+        self.emailDadosInscricao(aluno,bolsa)
+
+    def emailDadosInscricao(self, aluno, bolsa, prof):
         """Envia email com dados de inscrição para professor"""
         port = 465  # For SSL
         password = 'bolsas@123'
-        password = ''
 
         sender_email = "bolsasufjf@gmail.com"
-        receiver_email = "bolsasufjf@gmail.com"
+        receiver_email = prof.email
         subject = f"Candidatura da bolsa mamofaf"
-        # body = f"""\
-        # Aluno: {aluno.nome} {aluno.sobrenome}
+        body = f"""\
+        Aluno: {aluno.nome} {aluno.sobrenome}
         
-        # Matricula: {aluno.matricula}
+        Matricula: {aluno.matricula}
 
-        # Curso: {aluno.curso}
+        Curso: {aluno.curso}
 
-        # E-mail: {aluno.email}
-        # """
-        body = """\
-        Aluno: aluno.nome} aluno.sobrenome
-        
-        Matricula: aluno.matricula
-
-        Curso: aluno.curso
-
-        E-mail: aluno.email
+        E-mail: {aluno.email}
         """
 
         # Create a multipart message and set headers

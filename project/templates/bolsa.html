@@ -55,7 +55,7 @@
                         </div>
                         <div class="mb8">
                             <span><b>Professor/Servidor: </b></span>
-                            <span> <a href = "/Prof.html">Gorobina de Jesus </a></span>
+                            <span> <a href = "{{ url_for('paginaProfessor') }}"> {{ nome }} </a></span>
                         </div>
                         <div class="mb8">
                             <span><b>Duração: </b></span>
@@ -69,23 +69,11 @@
                 <hr>
 
                 <h3>Descrição:</h3>
-                <!-- <p>Cras sit amet nibh libero, in gravida nulla.
-                    Nulla vel metus scelerisque ante sollicitudin commodo.
-                    Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                    Fusce condimentum nunc ac nisi vulputate fringilla.
-                    Donec lacinia congue felis in faucibus.
-                    Além disso ela é bem legal mesmo, pode confiar. :)
-                </p> -->
+                
                 <p>{{ bolsa.descricao }}</p>
 
                 <h3>Processo de Seleção:</h3>
-                <!-- <p>Cras sit amet nibh libero, in gravida nulla.
-                    Nulla vel metus scelerisque ante sollicitudin commodo.
-                    Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                    Fusce condimentum nunc ac nisi vulputate fringilla.
-                    Donec lacinia congue felis in faucibus.
-                    Vai dar tudo certo!
-                </p> -->
+                
                 <p>{{ bolsa.selecao }}</p>
 
 
