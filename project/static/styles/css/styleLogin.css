@@ -1,0 +1,116 @@
+body {
+	
+
+	font-family: 'Roboto', sans-serif;
+	background-image: url(../img/ufjf.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+
+}
+
+.main-section{
+
+	margin: 0 auto;
+	margin-top: 130px;
+	padding:0 ;
+
+}
+
+.modal-content {
+
+	background-color: #E55448;
+	opacity: .8;
+	padding: 0 18px;
+	border-radius: 10px;
+
+}
+
+.user-img img{
+
+	height: 120px;
+	width: 180px;
+}
+
+.user-img {
+
+	margin-top: -60px;
+}
+
+.form-group {
+
+	margin-bottom: 25px;
+
+}
+
+.form-group input {
+
+	height: 42px;
+	border-radius: 5px;
+	border: 0;
+	font-size: 18px;
+	letter-spacing: 2px;
+	padding-left: 54px
+
+}
+
+.form-group i{
+
+	position: absolute;
+	font-size: 20px;
+	left: 50px;
+	padding-top: 10px;
+}
+
+.form-input button {
+
+	width: 40%;
+	margin: 5px 0 25px;
+}
+
+.btn-success {
+
+	background-color: #473F3E; 
+	font-size: 19px;
+	border-radius: 5px;
+	padding: 7px 14px;
+	border : 1px solid #daf1ff;
+}
+
+.btn-succes:hover {
+
+	opacity: .0;
+	background-color: #13445e;
+	border: 1px solid #daf1ff;
+}
+
+.forgot {
+
+	padding: 5px 0 25px;
+}
+
+.forgot a {
+	color: #daf1ff;
+	text-decoration: none;
+}
+
+.forgot a:hover {
+	color: #473F3E;
+}
+
+.notSignedYet {
+
+	padding: 5px 0 25px;
+}
+
+.notSignedYet a {
+	color: #daf1ff;
+	text-decoration: none;
+}
+
+.notSignedYet a:hover {
+	color: #473F3E;
+}
+
+.footer-copyright {
+	color: #EDEDED;
+}
