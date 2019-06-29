@@ -4,7 +4,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy import delete, insert, update
-from flask_login import current_user
+from flask_login import current_user, login_required, LoginManager, login_user
 from flask_user import roles_required
 
 # Configure app
@@ -15,6 +15,9 @@ app.config.from_pyfile('app.cfg')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 # configurate sessions
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -24,11 +27,7 @@ Session(app)
 def index():
     return render_template('index.html')
 
-from models import Bolsa, InscricaoBolsa
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
+from models import Bolsa, InscricaoBolsa, Usuario
 
 @app.route('/bolsa/<int:bolsa_id>', methods=['GET','POST'])
 def bolsa(bolsa_id):
@@ -82,10 +81,8 @@ def formBolsa():
     else:
         return render_template('formBolsa.html')
 
-
 @app.route('/bolsas', methods=['GET','POST'])
 def feed():
-
     if request.method == 'GET':
 
         # Todas as bolsas disponíveis são mostradas
@@ -116,12 +113,64 @@ def feed():
 
         return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
 
-
-@app.route('/paginaAluno',methods=['GET'])
+@app.route('/Aluno',methods=['GET'])
 def paginaAluno():
+    return render_template('PaginaAluno.html')
     
-@app.route('/paginaCadastro')
-def paginaCadastro():
-    
-@app.route('/paginaProfessor')
+@app.route('/Professor')
 def paginaProfessor():
+    return render_template('PaginaProfessor.html')
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Usuario.get(user_id)
+
+@app.route('/cadastro', methods=["GET", "POST"])
+def cadastro():
+
+    if request.method == 'POST':
+        # dados do formulário
+        dados = request.form.copy()
+
+        # Convertendo de string para datetime
+        dados['nascimento'] = datetime.strptime(dados['nascimento'], '%d/%m/%Y')
+
+        # adicionando usuário a tabela de Usuários
+        usuario = Usuario.addUsuario(**dados)
+
+        return redirect(url_for("login"))
+
+    return render_template('paginaCadastro.html')
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """For GET requests, display the login form. 
+    For POSTS, login the current user by processing the form.
+    """
+    if request.method == 'POST':
+        # dados do formulário
+        dados = request.form.copy()
+        user = Usuario.query.filter_by(email=dados['email']).first()
+        app.logger.info(user)
+        if user:
+            if user.password == dados['password']:
+                user.authenticated = True
+                db.session.add(user)
+                db.session.commit()
+                login_user(user, remember=True)
+                current_user = user # ainda não consigo pegar dados do current user
+
+                return redirect(url_for("/")) # to-do: nao esta redirecionando nao sei porque
+
+    return render_template("login.html")
+
+@app.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    """Logout the current user."""
+    user = current_user
+    user.authenticated = False
+    db.session.add(user)
+    db.session.commit()
+    logout_user()
+    return redirect(url_for("/"))

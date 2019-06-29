@@ -82,25 +82,53 @@ class Usuario(db.Model):
     matricula = db.Column (db.String(8))
     curso = db.Column(db.Integer)
     username = db.Column(db.String, unique = True)
-    senha = db.Column(db.String(20))
-    status = db.Column(db.Integer) #Se refere ao status de Professor ou Aluno, um boolean?#
+    password = db.Column(db.String(20))
+    aluno = db.Column(db.Boolean)
+    professor = db.Column(db.Boolean)
+    authenticated = db.Column(db.Boolean, default=False)
     
-    def _init_(self, id, nome,sobrenome,telefone,email,nascimento,periodo,
-               matricula,chave,username,senha,status):
+    def __init__(self,nome,sobrenome,telefone,email,nascimento,periodo,
+               matricula,curso,username,password,role):
         """Constructor"""
-        
-        self.id = clean(id)
+
         self.nome = clean(nome)
         self.sobrenome = clean(sobrenome)
         self.telefone = clean(telefone)
         self.email = clean(email)
-        self.nascimento = clean(nascimento)
+        self.nascimento = nascimento
         self.periodo = clean(periodo)
         self.matricula= clean(matricula)
         self.curso = clean(curso)
         self.username = clean(username)
-        self.senha = clean(senha)
-    
+        self.password = clean(password)
+        self.aluno = role == 'Aluno'
+        self.professor = role == 'Professor'
+
+    def is_active(self):
+        """True, as all users are active."""
+        return True
+
+    def get_id(self):
+        """Return the email address to satisfy Flask-Login's requirements."""
+        return self.email
+
+    def is_authenticated(self):
+        """Return True if the user is authenticated."""
+        return self.authenticated
+
+    def is_anonymous(self):
+        """False, as anonymous users aren't supported."""
+        return False
+
+    def addUsuario(nome,sobrenome,tel,email,nascimento,periodo,matricula,curso,username,password,role):
+        
+        user = Usuario(nome,sobrenome,tel,email,nascimento,periodo,matricula,curso,username,password,role)
+        
+        db.session.add(user)
+        db.session.commit()
+
+        return user
+        
     
 class InscricaoBolsa(db.Model):
     """ Classe modelo para construção da tabela de inscrições de bolsa """
@@ -124,6 +152,7 @@ class InscricaoBolsa(db.Model):
         self.emailDadosInscricao()
 
     def emailDadosInscricao(self):
+        """Envia email com dados de inscrição para professor"""
         port = 465  # For SSL
         password = 'bolsas@123'
         password = ''
