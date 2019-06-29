@@ -74,7 +74,7 @@ class Bolsa(db.Model):
         
 
 
-class Usuario(db.Usuario):
+class Usuario(db.Model):
   
     "Classe de Controle de Usuários registrado na aplicação"
     
