@@ -117,11 +117,11 @@ def feed():
         return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
 
 
-@app.route('/bolsas',methods=['GET'])
+@app.route('/paginaAluno',methods=['GET'])
 def paginaAluno():
     
-@app.route('')
+@app.route('/paginaCadastro')
 def paginaCadastro():
     
-@app.route()
+@app.route('/paginaProfessor')
 def paginaProfessor():
