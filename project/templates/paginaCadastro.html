@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang= 'pt'>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Cadastro Aluno</title>
+		<meta name = "author" content="Renan Nunes, Victor Aquiles, Thiago Guimarães"/>
+
+		<link rel="stylesheet" href="C:\Users\thiag\Desktop\Modelagem De Sistemas\TrabSrc\BolsasUFJF\project\static\styles\css\bootstrap.css">
+
+
+		<link rel="stylesheet" href="C:\Users\thiag\Desktop\Modelagem De Sistemas\TrabSrc\BolsasUFJF\project\static\styles\css\paginaCadastro.css">
+	</head>
+	
+	<body>
+              <div class="modal-dialog text-center">
+                     <div class="col-sm-22 main-section">
+                            <div class="modal-content">
+                     		<dev class = "container">
+
+                     			<h1 class = "header"> Cadastro </h1>
+
+                     			<!--- Aqui começa o Bootstrap e o formulário em si --->
+                     			<form id = "cadastroAluno" action = "/formAluno" method="POST">
+
+                     				<div class = "form-group">
+                     					<div class = "col">
+                     						<label class="field">Nome:</label>
+                     						<input id="name" class="form-control" placeholder="Nome" type="text" required autofocus="on">
+                     						<label class="field">Sobrenome:</label>
+                     						<input id="lastName" class="form-control" placeholder="Sobrenome" type="text" required autofocus="on">
+
+                                                               <label class="field">Papel na Universidade:</label>
+                                                               <select id="role" class="custom-select">
+                                                                      <option selected>---</option>
+                                                                      <option>Aluno</option>
+                                                                      <option>Professor</option>
+                                                               </select>
+                                                               
+                     					</div>
+                     				</div>
+
+                     				<div class = "form-group">
+                     					<div class = "col">
+                     						<label class="field">Telefone: </label>
+                     						<input id="tel" class="form-control" placeholder="(XX)XXXXX-XXXX" type="tel" required autofocus="on">
+                     						<label class="field">E-mail:</label>
+                     						<input id="email" class="form-control" placeholder="exemplo@exemplo.com" type="email" required autofocus="on">
+                     					</div>
+
+                     					<div class = "col">
+
+                     						<label class="field">Período:</label>
+                     						<select id="period" class="custom-select">
+                                                                      <option selected>---</option>
+                                                                      <option>1º Período</option>
+                                                                      <option>2º Período</option>
+                                                                      <option>3º Período</option>
+                                                                      <option>4º Período</option>
+                                                                      <option>5º Período</option>
+                                                                      <option>6º Período</option>
+                                                                      <option>7º Período</option>
+                                                                      <option>8º Período</option>
+                                                                      <option>9º Período</option>
+                                                                      <option>10º Período</option>
+                                                                      <option>11º Período</option>
+                                                                      <option>12º Período</option>
+                                                               </select>
+
+                                                               <label class="field">Curso:</label>
+                                   				<select id="course" class="custom-select">
+                                                                      <option selected>---</option>
+                                                                      <option>Administração</option>
+                                                                      <option>Arquitetura e Urbanismo</option>
+                                                                      <option>Artes e Design</option>
+                                                                      <option>Artes Visuais</option>
+                                                                      <option>Ciência da Computação</option>
+                                                                      <option>Ciência da Religião</option>
+                                                                      <option>Ciências Biológicas</option>
+                                                                      <option>Ciências Contábeis</option>
+                                                                      <option>Ciências Econômicas</option>
+                                                                      <option>Ciências Exatas</option>
+                                                                      <option>Ciências Humanas</option>
+                                                                      <option>Ciências Sociais</option>
+                                                                      <option>Cinema e Audio Visual</option>
+                                                                      <option>Design</option>
+                                                                      <option>Direito</option>
+                                                                      <option>Educação Física</option>
+                                                                      <option>Enfermagem</option>
+                                                                      <option>Engenharia Ambiental e Sanitária</option>
+                                                                      <option>Engenharia Civil</option>
+                                                                      <option>Engenharia Computacional</option>
+                                                                      <option>Engenharia de Produção</option>
+                                                                      <option>Engenharia Elétrica</option>
+                                                                      <option>Engenharia Mecânica</option>
+                                                                      <option>Estatística</option>
+                                                                      <option>Farmácia</option>
+                                                                      <option>Filosofia</option>
+                                                                      <option>Fisica</option>
+                                                                      <option>Fisioterapia</option>
+                                                                      <option>Geografia</option>
+                                                                      <option>História</option>
+                                                                      <option>Jornalismo</option>
+                                                                      <option>Letras</option>
+                                                                      <option>Matemática</option>
+                                                                      <option>Medicina Veterinária</option>
+                                                                      <option>Medicina</option>
+                                                                      <option>Moda</option>
+                                                                      <option>Musica</option>
+                                                                      <option>Nutrição</option>
+                                                                      <option>Odontologia</option>
+                                                                      <option>Pedagogia</option>
+                                                                      <option>Psicologia</option>
+                                                                      <option>Química</option>
+                                                                      <option>Radio,TV e internet</option>
+                                                                      <option>Serviço Social</option>
+                                                                      <option>Sistema de Informação</option>
+                                                                      <option>Turismo</option>
+                                                               </select>
+
+                     					</div>
+
+                     					<div class = "col">
+
+                     						<label class="field">Data de Nascimento:</label>
+                     						<input id="birthDate" class="form-control" placeholder="dd/mm/aaaa" type="date" required autofocus="on">
+
+                     					</div>
+
+
+                     					<div class = "col">
+
+                     						<label class="field">Username:</label>
+                     						<input id="username" class="form-control" placeholder="username" type="text" required autofocus="on">
+
+                                                               <label class="field">Senha:</label>
+                                                               <input id="password" class="form-control" placeholder="senha" type="password" required autofocus="on">
+
+
+                     					</div>
+
+                     				</div>
+
+                     				<button type="submit" class="btn btn-success">Cadastrar</button>
+
+                     			</form>
+                                   </div>
+                            </div>
+                     </div> 
+		</div>
+
+	</body>
+
+       <!-- Footer -->
+         <footer class="page-footer font-small blue">
+
+           <!-- Copyright -->
+           <div class="footer-copyright text-center py-3">&copy 2019 Copyright</div>
+           <!-- Copyright -->
+
+         </footer>
+       <!-- Footer -->
+
+</html>
