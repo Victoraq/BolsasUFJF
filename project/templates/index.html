@@ -26,9 +26,9 @@
 						<nav>
 							
 							<ul class = "menu inline sem-marcador">
-								<li><a href="index.html">Home</a></li>
-									<li><a href="paginaAluno.html">Alunos</a></li>
-									<li><a href="paginaProfessor.html">Professores</a></li>
+								<li><a href="{{ url_for('index') }}">Home</a></li>
+									<li><a href="{{ url_for('paginaAluno') }}">Alunos</a></li>
+									<li><a href="{{ url_for('paginaProfessor') }}">Professores</a></li>
 									<li><a href="{{ url_for('cadastro') }}">Cadastre-se</a></li>
 									<li><a href="{{ url_for('login') }}">Login</a></li>
 							</ul>
