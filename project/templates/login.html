@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="C:\Users\thiag\Desktop\Modelagem De Sistemas\TrabSrc\BolsasUFJF\project\static\styles\css\bootstrap.min.css">
-    <link rel="stylesheet" href="C:\Users\thiag\Desktop\Modelagem De Sistemas\TrabSrc\BolsasUFJF\project\static\styles\css\styleLogin.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/styleLogin.css') }}">
     <script src="https://kit.fontawesome.com/acb2d58f15.js"></script>
 
     <title>Login</title>
@@ -25,31 +25,31 @@
         <div class="modal-content">
           
           <div class="col-12 user-img">
-            <img src="../static/styles/img/userImg.png">
+            <img src = "{{ url_for('static',filename='styles/img/userImg.png') }}" alt = "UserImg">
           </div>
 
           <div class="col-12 form-input">
 
-            <form>
+            <form id = "login" action = "\login" method="POST">
               
               <div class="form-group">
                 <i class="fas fa-at"></i>
-                <input type="email" class="formcontrol" placeholder="Digite seu email">
+                <input name="email" type="email" class="formcontrol" placeholder="Digite seu email">
               </div>
 
               <div class="form-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" class="formcontrol" placeholder="Digite sua senha">
+                <input name="password" type="password" class="formcontrol" placeholder="Digite sua senha">
               </div>
 
-              <button type="submit" class="btn btn-success">Login</button>
+              <input type="submit" class="btn btn-success" value="Login">
 
               <div class="col-12 forgot">
                   <a href="#">Esqueceu a senha ?</a>
               </div>
 
               <div class="col-12 notSignedYet">
-                  <a href="#">Não possui cadastro ?</a>
+                  <a href="{{ url_for('cadastro') }}">Não possui cadastro ?</a>
               </div>
                 
             </form>

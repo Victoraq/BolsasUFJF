@@ -1,65 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!--- A Estrutura da página do aluno e do professor serão basicamente idênticas mudando apenas as opções, ambas as páginas mostrarão as bolsas registradas a diferença básica é que a página do professor deverá possuir um link para a publicação de novas bolsas. --->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/paginaAluno.css') }}">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static',filename='styles/js/jquery.js') }}"></script>
+    <script src="{{ url_for('static',filename='styles/js/popper.js') }}"></script>
+    <script src="{{ url_for('static',filename='styles/js/bootstrap.min.js') }}"></script>
 
-<!--- Discutir como será feita a exibição do perfil do professor? Será uma segunda página relacionada à página do professor? O que ela irá retornar? Apenas uma descrição básica e uma lista de bolsas publicadas? --->
+    <title>Página do Aluno</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-danger justify-content-between fixed-top">
+      <a class="navbar-brand" style="color: white" href="{{ url_for('index') }}">BolsasUFJF</a>
+    </nav>
 
-<html lang = "pt">
+    <hr>
+    
 
-	<head>
-
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Página Aluno</title>
-		<meta name = "author" content="Renan Nunes, Victor Aquiles, Thiago Guimarães"/>
-
-		<link rel="stylesheet" type="text/css" href="C:\Users\thiag\Desktop\Modelagem De Sistemas\TrabSrc\BolsasUFJF\project\static\styles\PaginaAluno.css">
-	
-	</head>
-
-	<body>
-
-		<div class = "header">
-
-			<div class = "linha">
-				<header>
-					
-					<!--- Aqui deverão estar um iconezinho no canto, o nome do aluno e o tempo de sessão, O logo da ufjf e uma caixa de pesquisa. --->
-
-				</header>
-			</div>
-
-		</div>
-
-		<div class = "linha">
-			<div class = "centraliza-tudo">
-				<section>
-					<h3>Isso aqui aparece onde?</h3>
-					<!--- Aqui estarão os dados e uma opção de atualização dos mesmos --->
-
-				</section>
-			</div>
-		</div>
+    <div class="container">
+      
+      <img id="profileImg" src="../static/styles/img/userImg.png">
 
 
-		<div class = "linha">
-			<div class = "centraliza-tudo">
-				<section>
-					<h3>Onde isso vai aparecer</h3>
-					<!--- Aqui deverão estar um menu de acesso com as bolsas do aluno, o tempo de finalização do edital, um quadro estático de 200x140 pixels --->
-				</section>
-			</div>
-		</div>
+      <h3>Informações do Aluno</h3>
 
-		<div class = "linha">
-			<div class = "footer">
-				<footer>
-					<span>&copy; 2019 - BolsasUFJF</span>
-				</footer>
-			</div>
-		</div>
+      <div class="info">
+        
+        <p>Nome Completo : </p>
+        <p>Matrícula : </p>
+        <p>E-mail para contato : </p>
+        <p>Curso : </p>
 
+        <div class="dropright">
+          <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Bolsas Inscritas
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Bolsa 1</a>
+            <a class="dropdown-item" href="#">Bolsa 2</a>
+            <a class="dropdown-item" href="#">Bolsa 3</a>
+            <a class="dropdown-item" href="#">Ver todas</a>
 
-	</body>
+          </div>
+        </div>
 
+      </div>
+
+    </div>
+  
+
+  <div class="container-fluid"><hr></div>
+
+  <div style="margin: 25px;"></div>
+  <!-- Footer -->
+  <footer class="page-footer font-small blue">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">&copy 2019 Copyright
+     
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+
+  </body>
 </html>

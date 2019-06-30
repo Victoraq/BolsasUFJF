@@ -1,23 +1,20 @@
 
-
 body {
 
 	background-color: #EBEBEB;
 
 }
 
-#profileImg {
+hr{
 
-	height: 200px;
-	width: 300px;
-
+	margin-top: 70px;
+	margin-bottom: 0px;
 }
 
-#Titulo{
+#profileImg {
 
-	text-decoration: none;
-	font-size: 30px;
-	color: #EDEDED;
+	height: 20%;
+	width: 30%;
 
 }
 

@@ -1,19 +1,31 @@
+
+import os
+
 from flask import Flask, redirect, url_for, render_template, request, session
 from flask_session import Session
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy import delete, insert, update
-from flask_login import current_user
+from flask_login import current_user, login_required, LoginManager, login_user
 from flask_user import roles_required
+
+project_dir = os.path.dirname(os.path.abspath(__file__))
+database_file = "sqlite:///{}".format(os.path.join(project_dir, "bolsasUFJF.db"))
 
 # Configure app
 app = Flask(__name__)
 
 # Configure the database
-app.config.from_pyfile('app.cfg')
+app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+app.config["MAX_CONTENT_LENGTH"] = 32 * 1024 * 1024
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 # configurate sessions
 app.config["SESSION_PERMANENT"] = False
@@ -24,24 +36,20 @@ Session(app)
 def index():
     return render_template('index.html')
 
-from models import Bolsa, InscricaoBolsa
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
+from models import Bolsa, InscricaoBolsa, Usuario
 
 @app.route('/bolsa/<int:bolsa_id>', methods=['GET','POST'])
 def bolsa(bolsa_id):
     # Request dos dados da bolsa no banco
-    bolsa = Bolsa.query.filter_by(id=bolsa_id).first()
+    bolsa = Bolsa.getBolsa(bolsa_id)
 
     if request.method == 'GET':
         return render_template('bolsa.html', bolsa=bolsa)
     
     else:
-        if current_user.is_authenticated:
-            aluno_id = current_user.get_id()  # id do aluno logado
+        if session['logged_in'] and session['aluno']:
 
+            aluno_id = session['user'].id # linha de teste
             data = datetime.now() # data de inscrição
 
             # anexo submetido
@@ -51,34 +59,183 @@ def bolsa(bolsa_id):
             # anexo.save(path)
 
             # Adicionando inscrição a tabela
+            # To-do: consertar inscrição
             inscricao = InscricaoBolsa(aluno_id, bolsa_id, data, path)
+            app.logger.info('aqui foi')
             db.session.add(inscricao)
             db.session.commit()
+            app.logger.info('aqui tambem foi')
 
-            return render_template('/index.html')
-
-        else:
-            return redirect(url_for('login'))
+            return render_template('/inscricaoConcluida.html')
+    
+    return render_template('/naoLogado.html')
 
         # return redirect(url_for('inscricao', bolsa_id=bolsa_id))
 
 @app.route('/formbolsa', methods=['GET','POST'])
-# @roles_required(['Professor']) # Para abrir página o usuário deve estar logado como professor.
 def formBolsa():
+
+    # só é possivel acessa a página se estiver logado e for professor
+    if session['logged_in'] and not session['aluno']:
+
+        if request.method == 'POST':
+            # dados do formulário
+            dados = request.form.copy()
+
+            # Convertendo de string para datetime
+            dados['dataInicio'] = datetime.strptime(dados['dataInicio'], '%d/%m/%Y')
+            dados['dataFim'] = datetime.strptime(dados['dataFim'], '%d/%m/%Y')
+
+            # Adicionando dados na tabela de bolsas
+            bolsa = Bolsa.addBolsa(**dados)
+
+            return redirect(url_for('bolsa', bolsa_id=bolsa.id))
+        else:
+            return render_template('formBolsa.html')
+
+    else:
+        app.logger.info('acesso negado')
+        return index()
+
+@app.route('/bolsas', methods=['GET','POST'])
+def feed():
+    if request.method == 'GET':
+
+        # Todas as bolsas disponíveis são mostradas
+        bolsas = Bolsa.buscarBolsas()
+
+        apresentacao = 'Lista das Bolsas ofertadas:'
+
+        return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
+    
+    else:
+
+        try:
+            busca = request.form['busca']
+        except:
+            busca = ''
+        
+        if busca == '':
+            # Todas as bolsas disponíveis são mostradas
+            bolsas = Bolsa.buscarBolsas()
+
+            apresentacao = f'Lista das Bolsas ofertadas:'        
+
+        else:
+            # filtra bolsas com string parecida com a buscada
+            bolsas = Bolsa.buscarBolsas(busca)
+
+            apresentacao = f'Lista das Bolsas ofertadas relacionadas a {busca}:'        
+
+        return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
+
+
+@app.route('/professor/<int:professor_id>', methods=['GET'])
+def professor(professor_id):
+    # Request dos dados do professor no banco
+    professor = Usuario.buscarProfessorID(professor_id)
+
+    return render_template('paginaProfessor.html', professor=professor)
+
+
+@app.route('/professores', methods=['GET', 'POST'])
+def mostraProfessores():
+    if request.method == 'GET':
+
+        # Todos os professores são mostrados por nome
+        professores = Usuario.buscarProfessores()
+
+        apresentacao = 'Professores cadastrados:'
+
+        return render_template('paginaProfessores.html', professores=professores, apresentacao=apresentacao)
+
+    else:
+
+        try:
+            busca = request.form['busca']
+        except:
+            busca = ''
+
+        if busca == '':
+            # Todos os professores são mostrados por nome
+            professores = Usuario.buscarProfessores()
+
+            apresentacao = f'Professores cadastrados:'
+
+        else:
+            # filtra os professores de acordo com o nome passado por parametro
+            nome = busca
+            professores = Usuario.buscarProfessorNome(nome)
+
+            if professores is None :
+                apresentacao = f'Professor não encontrado :( '
+            else:
+                apresentacao = f'Resultado da busca:'
+
+        return render_template('paginaProfessores.html', professores=professores, apresentacao=apresentacao)
+
+
+@app.route('/Aluno',methods=['GET'])
+def paginaAluno():
+    return render_template('paginaAluno.html')
+    
+@app.route('/Professor',methods=['GET'])
+def paginaProfessor():
+    return render_template('paginaProfessor.html')
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Usuario.get(user_id)
+
+@app.route('/cadastro', methods=["GET", "POST"])
+def cadastro():
 
     if request.method == 'POST':
         # dados do formulário
         dados = request.form.copy()
 
         # Convertendo de string para datetime
-        dados['dataInicio'] = datetime.strptime(dados['dataInicio'], '%d/%m/%Y')
-        dados['dataFim'] = datetime.strptime(dados['dataFim'], '%d/%m/%Y')
+        dados['nascimento'] = datetime.strptime(dados['nascimento'], '%d/%m/%Y')
 
-        # Adicionando dados na tabela de bolsas
-        bolsa = Bolsa(**dados)
-        db.session.add(bolsa)
-        db.session.commit()
+        # adicionando usuário a tabela de Usuários
+        usuario = Usuario.addUsuario(**dados)
 
-        return redirect(url_for('bolsa', bolsa_id=bolsa.id))
-    else:
-        return render_template('formBolsa.html')
+        return redirect(url_for("login"))
+
+    return render_template('paginaCadastro.html')
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """For GET requests, display the login form. 
+    For POSTS, login the current user by processing the form.
+    """
+    if request.method == 'POST':
+        # dados do formulário
+        dados = request.form.copy()
+        
+        #Procurando usuario no banco de dados
+        user = Usuario.query.filter_by(email=dados['email']).first()
+        
+        if user:
+            if user.password == dados['password']:
+                user.authenticated = True
+                session['logged_in'] = True
+                session['aluno'] = user.aluno
+                session['user'] = user
+
+                return index()
+
+    return render_template("login.html")
+
+@app.route("/logout", methods=["GET"])
+def logout():
+    """Logout the current user."""
+    user = session['user']
+    user.authenticated = False
+
+    # Limpando sessao
+    session['logged_in'] = False
+    session['aluno'] = None
+    session['user'] = None
+
+    return index()
