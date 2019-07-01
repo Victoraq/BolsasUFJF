@@ -175,18 +175,21 @@ def mostraProfessores():
 
 @app.route('/Aluno',methods=['GET'])
 def paginaAluno():    
+     
+    try:
+        if session['logged_in'] and session['aluno']:
+            user = session['user']
+            inscricoes = InscricaoBolsa.buscarIncricaoAluno(user.id)
+            bolsas = InscricaoBolsa.buscaNome(inscricoes)
         
-    if session['logged_in'] and session['aluno']:
-        user = session['user']
-        inscricoes = InscricaoBolsa.buscarIncricaoAluno(user.id)
-        bolsas = InscricaoBolsa.buscaNome(inscricoes)
-        
-        return render_template('PaginaAluno.html',bolsas=bolsas)
-    elif session['logged_in'] and session['professor']:
-        user = session['user']
-        return redirect(url_for('professor',professor_id = user.id))
-    else:
-        return render_template('/naoLogado.hmtl')
+            return render_template('PaginaAluno.html',bolsas=bolsas)
+        elif session['logged_in'] and session['professor']:
+            user = session['user']
+            return redirect(url_for('professor',professor_id = user.id))
+        else:
+            return render_template('/naoLogado.html')
+    except:
+        return render_template('/naoLogado.html')
     
     
 
