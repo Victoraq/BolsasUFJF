@@ -44,11 +44,13 @@
             Bolsas Inscritas
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            
-
+            {%for inscricoes in inscricoes%}
+              {%if inscricoes.buscaAlunoId() == aluno.buscarAlunoId()%}
+                
               <a class="dropdown-item" href="/bolsa/{{bolsa.id}}">{{bolsa.titulo}}</a>
 
-            
+              {%endif%}
+            {%endfor%}            
           </div>
         </div>
 

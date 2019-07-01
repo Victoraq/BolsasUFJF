@@ -181,7 +181,8 @@ def paginaAluno():
         #busca todos os alunos cadastrados
         alunos = Usuario.buscaAluno()
         inscricoes = InscricaoBolsa.buscarIncricoes()
-    return render_template('PaginaAluno.html', alunos=alunos,inscricoes=inscricoes)
+        bolsas = Bolsa.buscarBolsas()
+    return render_template('PaginaAluno.html', alunos=alunos,inscricoes=inscricoes, bolsas=bolsas)
     
 @app.route('/Professor')
 def paginaProfessor():
