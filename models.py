@@ -159,8 +159,12 @@ class Usuario(db.Model):
 
         return informacoes
     
-    def retornaId(self):
-        return self.id
+    def buscaAluno(busca=''):
+        
+        if busca == '':
+            alunos = Usuario.query.filter_by(aluno=True).all()
+            
+        return alunos
     
 class InscricaoBolsa(db.Model):
     """ Classe modelo para construção da tabela de inscrições de bolsa """

@@ -23,12 +23,12 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
+    #Request todas as bolsas cadastradas
+    bolsas = Bolsa.buscarBolsas()
     
-    ''' if request.method == 'GET':
-        bolsas = Bolsa.buscarBolsas()'''
-    return render_template('index.html')
+    return render_template('index.html',bolsas=bolsas)
 
 from models import Bolsa, InscricaoBolsa, Usuario
 
@@ -177,18 +177,10 @@ def mostraProfessores():
 
 @app.route('/Aluno',methods=['GET'])
 def paginaAluno():
-    
     if request.method == 'GET':
-        user = session['user']
-        identidade = Usuario.retornaId()
-        
-        aluno = Usuario.query.filter_by(identidade).first()
-       
-     # só é possivel acessa a página se estiver logado e for aluno
-     if session['logged_in'] and not session['professor']:   
-         return render_template('PaginaAluno.html',aluno=aluno)
-    
-    """ return render_template('/naoLogado.html')"""
+        #busca todos os alunos cadastrados
+        alunos = Usuario.buscaAluno()
+    return render_template('PaginaAluno.html', alunos=alunos)
     
 @app.route('/Professor')
 def paginaProfessor():
