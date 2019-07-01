@@ -132,8 +132,8 @@ def feed():
 def professor(professor_id):
     # Request dos dados do professor no banco
     professor = Usuario.buscarProfessorID(professor_id)
-
-    return render_template('paginaProfessor.html', professor=professor)
+    bolsas = Bolsa.query.filter_by(prof_id=professor_id).all() 
+    return render_template('paginaProfessor.html', professor=professor,bolsas=bolsas)
 
 
 @app.route('/professores', methods=['GET', 'POST'])

@@ -37,31 +37,30 @@
 
       <div class="info">
         
-        <p>Nome Completo : </p>
-        <p>E-mail para contato : </p>
-        <p>Área de pesquisa : </p>
+        <p>Nome Completo : {{professor.nome + ' ' + professor.sobrenome}}</p>
+        <p>E-mail para contato : {{professor.email}}</p>
 
         <div class="dropright">
           <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Bolsas abertas para inscrição
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Bolsa 1</a>
-            <a class="dropdown-item" href="#">Bolsa 2</a>
-            <a class="dropdown-item" href="#">Bolsa 3</a>
-            <a class="dropdown-item" href="#">Ver todas</a>
+            {%for bolsa in bolsas%}
+              {%if bolsa.ativa%}
+              <a class="dropdown-item" href="/bolsa/{{bolsa.id}}">{{bolsa.nome}}</a>
+              {%endif%}
+            {%endfor%}
           </div>
         </div>
 
         <div class="dropright">
           <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Histórico de bolsas oferecidas
+            Histórico de bolsas já oferecidas
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Bolsa 1</a>
-            <a class="dropdown-item" href="#">Bolsa 2</a>
-            <a class="dropdown-item" href="#">Bolsa 3</a>
-            <a class="dropdown-item" href="#">Ver todas</a>
+            {%for bolsa in bolsas%}
+              <a class="dropdown-item" href="/bolsa/{{bolsa.id}}">{{bolsa.nome}}</a>
+            {%endfor%}
 
           </div>
         </div>
