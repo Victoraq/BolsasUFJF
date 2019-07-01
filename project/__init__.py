@@ -23,12 +23,10 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
-    #Request todas as bolsas cadastradas
-    bolsas = Bolsa.buscarBolsas()
     
-    return render_template('index.html',bolsas=bolsas)
+    return render_template('index.html')
 
 from models import Bolsa, InscricaoBolsa, Usuario
 
@@ -176,21 +174,17 @@ def mostraProfessores():
 
 
 @app.route('/Aluno',methods=['GET'])
-def paginaAluno():
-    if request.method == 'GET':
-        #busca todos os alunos cadastrados
-        alunos = Usuario.buscaAluno()
-        inscricoes = InscricaoBolsa.buscarIncricoes()
-        bolsas = Bolsa.buscarBolsas()
-    return render_template('PaginaAluno.html', alunos=alunos,inscricoes=inscricoes, bolsas=bolsas)
+def paginaAluno():    
+        
+    if session['logged_in'] and session['aluno']:
+        user = session['user']
+        inscricoes = InscricaoBolsa.buscarIncricaoAluno(user.id)
+        bolsas = InscricaoBolsa.buscaNome(inscricoes)
+        
+        return render_template('PaginaAluno.html',bolsas=bolsas)
+    else: 
+        return render_template('/naoLogado.hmtl')
     
-@app.route('/Professor')
-def paginaProfessor():
-    return render_template('PaginaProfessor.html')
-
-@login_manager.user_loader
-def load_user(user_id):
-    return Usuario.get(user_id)
 
 @app.route('/cadastro', methods=["GET", "POST"])
 def cadastro():

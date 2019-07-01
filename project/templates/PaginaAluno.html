@@ -33,24 +33,21 @@
       <h3>Informações do Aluno</h3>
 
       <div class="info">
-        
-        <p>Nome Completo : </p>
-        <p>Matrícula : </p>
-        <p>E-mail para contato : </p>
-        <p>Curso : </p>
-
+            <p>Nome Completo : {{user.nome + ' ' + user.sobrenome}}</p>
+            <p>Matrícula : {{user.matricula}}</p>
+            <p>E-mail para contato : {{user.email}}</p>
+            <p>Curso : {{user.curso}}</p>
         <div class="dropright">
           <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Bolsas Inscritas
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {%for inscricoes in inscricoes%}
-              {%if inscricoes.buscaAlunoId() == aluno.buscarAlunoId()%}
-                
+            {{%for bolsa in bolsas%}}
               <a class="dropdown-item" href="/bolsa/{{bolsa.id}}">{{bolsa.titulo}}</a>
-
-              {%endif%}
-            {%endfor%}            
+              }
+            {{%endfor%}}                     
+            }
+            }
           </div>
         </div>
 

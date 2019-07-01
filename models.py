@@ -82,7 +82,7 @@ class Usuario(db.Model):
     nascimento = db.Column(db.DateTime)
     periodo = db.Column (db.Integer)
     matricula = db.Column (db.String(8))
-    curso = db.Column(db.Integer)
+    curso = db.Column(db.String)
     username = db.Column(db.String, unique = True)
     password = db.Column(db.String(20))
     aluno = db.Column(db.Boolean)
@@ -253,3 +253,18 @@ class InscricaoBolsa(db.Model):
             inscricoes = InscricaoBolsa.query.order_by(InscricaoBolsa.id_bolsa).all()
             
             return inscricoes
+    
+    def buscaInscricaoAluno(aluno_id):
+        
+        inscricao =  InscricaoBolsa.query.order_by(aluno_id=id_aluno).all()
+        
+        return inscricao
+    
+    def buscaNome(inscricoes):
+        bolsa = []
+        for inscricao in inscricoes:
+            bolsa.append(Bolsas.getBolsas(inscricoes.id_bolsa))
+        
+        return bolsa
+    
+    
