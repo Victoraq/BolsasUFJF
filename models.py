@@ -245,3 +245,11 @@ class InscricaoBolsa(db.Model):
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, text)
+            
+    def buscarInscricoes(busca=''): 
+        """ Retorna todas as inscricoes relacionadas a busca """
+        
+        if busca == '':
+            inscricoes = InscricaoBolsa.query.order_by(InscricaoBolsa.id_bolsa).all()
+            
+            return inscricoes

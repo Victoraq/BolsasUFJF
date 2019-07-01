@@ -180,7 +180,8 @@ def paginaAluno():
     if request.method == 'GET':
         #busca todos os alunos cadastrados
         alunos = Usuario.buscaAluno()
-    return render_template('PaginaAluno.html', alunos=alunos)
+        inscricoes = InscricaoBolsa.buscarIncricoes()
+    return render_template('PaginaAluno.html', alunos=alunos,inscricoes=inscricoes)
     
 @app.route('/Professor')
 def paginaProfessor():
