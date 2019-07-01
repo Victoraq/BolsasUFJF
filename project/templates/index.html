@@ -46,7 +46,12 @@
 					<div class = "coluna">
 						<h2>Últimas Adicionadas</h2>
 						<ul class = "list-group sem-marcador">
-				
+
+							{% for bolsa in bolsas %}
+
+								<li class = "list-group-item"><a href="/bolsa/{{bolsa.id}}">{{bolsa.titulo}}</a></li>
+
+							{% endfor %}
 
 						</ul>
 						<a href="/bolsas" class = "botao">Ver todos &raquo;</a>

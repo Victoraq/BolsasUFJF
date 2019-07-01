@@ -25,6 +25,11 @@ Session(app)
 
 @app.route('/')
 def index():
+    #Request todas as bolsas cadastradas
+    bolsas = Bolsa.buscarBolsas()
+
+    if len(bolsas) >= 4:
+        bolsas = bolsas[:4]
     
     return render_template('index.html')
 
@@ -43,7 +48,7 @@ def bolsa(bolsa_id):
         else: 
             nome = 'Não disponivel'
 
-        return render_template('bolsa.html', bolsa=bolsa, nome=nome)
+        return render_template('bolsa.html', bolsa=bolsa, nome=nome, professor=prof)
     
     else:
         if session['logged_in'] and session['aluno']:
@@ -190,7 +195,6 @@ def paginaAluno():
             return render_template('/naoLogado.html')
     except:
         return render_template('/naoLogado.html')
-    
     
 
 @app.route('/cadastro', methods=["GET", "POST"])

@@ -165,6 +165,28 @@ class Usuario(db.Model):
             alunos = Usuario.query.filter_by(aluno=True).all()
             
         return alunos
+
+    def buscarProfessores(busca=''):
+        """ Retorna todos os professores """
+
+        if busca == '':
+            professores = Usuario.query.filter_by(professor=True).all()
+
+            return professores
+
+    def buscarProfessorNome(professor_nome):
+        """ Retorna as informacoes dos professores com o nome especificado """
+
+        informacoes = Usuario.query.filter_by(nome=professor_nome).filter_by(professor=True).all()
+
+        return informacoes
+
+    def buscarProfessorID(professor_id):
+        """ Retorna as informacoes de um professor especifico """
+
+        informacoes = Usuario.query.filter_by(id=professor_id).first()
+
+        return informacoes
     
 class InscricaoBolsa(db.Model):
     """ Classe modelo para construção da tabela de inscrições de bolsa """

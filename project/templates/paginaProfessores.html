@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Professores Cadastrados</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+        <!-- <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/formulario.css') }}"> -->
+    </head>
+
+    <body style="margin: 50px 0px 50px 0px">
+
+        <div class="container">
+            
+            <nav class="navbar navbar-light bg-danger justify-content-between fixed-top">
+                <a class="navbar-brand" style="color: white" href="{{ url_for('index') }}">BolsasUFJF</a>
+                <form class="form-inline" method="POST">
+                    <input class="form-control mr-sm-2" name='busca' type="search" placeholder="Busca" aria-label="Search">
+                    <button class="btn btn-light my-2 my-sm-0" type="submit">Buscar</button>
+                </form>
+            </nav>
+
+            <h3 class="py-4">{{apresentacao}}</h3>
+            
+            <div class="list-group">
+              
+              {% for professor in professores %}
+                <a href="/professor/{{professor.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">{{professor.nome}}</h5>
+                    </div>
+                    <p class="mb-1">{{professor.email}}</p>
+                </a>
+              {% endfor %}
+
+            </div>
+
+        </div>
+    </body>
+
+</html>

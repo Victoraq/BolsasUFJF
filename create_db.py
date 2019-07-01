@@ -1,5 +1,5 @@
 from project import db
-from models import Bolsa
+from models import Bolsa, Usuario, InscricaoBolsa
 from datetime import datetime
 
 # create database
