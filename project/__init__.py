@@ -182,8 +182,12 @@ def paginaAluno():
         bolsas = InscricaoBolsa.buscaNome(inscricoes)
         
         return render_template('PaginaAluno.html',bolsas=bolsas)
-    else: 
+    elif session['logged_in'] and session['professor']:
+        user = session['user']
+        return redirect(url_for('professor',professor_id = user.id))
+    else:
         return render_template('/naoLogado.hmtl')
+    
     
 
 @app.route('/cadastro', methods=["GET", "POST"])

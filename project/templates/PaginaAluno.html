@@ -42,12 +42,9 @@
             Bolsas Inscritas
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {{%for bolsa in bolsas%}}
+            {%for bolsa in bolsas%}
               <a class="dropdown-item" href="/bolsa/{{bolsa.id}}">{{bolsa.titulo}}</a>
-              }
-            {{%endfor%}}                     
-            }
-            }
+            {%endfor%}                    
           </div>
         </div>
 
