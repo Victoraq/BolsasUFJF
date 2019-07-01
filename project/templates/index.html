@@ -10,51 +10,47 @@
 		<meta name = "keywords" content="Bolsas, Projeto de Extensão, Alunos, UFJF" />
 		<meta name = "author" content="Renan Nunes, Victor Aquiles, Thiago Guimarães"/>
 
-		<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
-
-		<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/Index.css') }}">
+		<!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+	    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/Index.css') }}">
+	    
+	    <!-- Optional JavaScript -->
+	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	    <script src="{{ url_for('static',filename='styles/js/jquery.js') }}"></script>
+	    <script src="{{ url_for('static',filename='styles/js/popper.js') }}"></script>
+	    <script src="{{ url_for('static',filename='styles/js/bootstrap.min.js') }}"></script>
 
 
 	</head>
 
 	<body>
+
 		<div class = "container">
-			<div class = "jumbotron header">
-				<div class = "linha">
-					<header>
-							<h1 class = "logo">UFJF - Classificado de Bolsas</h1>
-						<nav>
-							
-							<ul class = "menu inline sem-marcador">
-								<li><a href="{{ url_for('index') }}">Home</a></li>
-									<li><a href="{{ url_for('paginaAluno') }}">Alunos</a></li>
-									<li><a href="{{ url_for('paginaProfessor') }}">Professores</a></li>
-									<li><a href="{{ url_for('cadastro') }}">Cadastre-se</a></li>
-									<li><a href="{{ url_for('login') }}">Login</a></li>
-							</ul>
 
-						</nav>
+			<nav class="navbar navbar-light bg-danger justify-content-between fixed-top">
+	            <a class="navbar-brand" style="color: white" href="{{ url_for('index') }}">BolsasUFJF</a>
+	            <ul class = "menu inline sem-marcador">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="{{ url_for('paginaAluno') }}">Alunos</a></li>
+					<li><a href="{{ url_for('mostraProfessores') }}">Professores</a></li>
+					<li><a href="{{ url_for('cadastro') }}">Cadastre-se</a></li>
+					<li><a href="{{ url_for('login') }}">Login</a></li>
+				</ul>
+          	</nav>
 
-					</header>
-				</div>
-			</div>
 
 			<div class = "linha">
 				<section>
 					<div class = "coluna">
-						<h2>Ultimas Adicionadas</h2>
+						<h2>Últimas Adicionadas</h2>
 						<ul class = "list-group sem-marcador">
-								<!--- Antigo --->
-								<!---<li class = "list-group-item"><a href="">Pesquisa Operacional em redes complexas</a></li>
-								<li class = "list-group-item"><a href="">A saúde sexual entre jovens adultos</a></li>
-								<li class = "list-group-item"><a href="">O Papel do relevo no escoamento de água</a></li>
-								<li class = "list-group-item"><a href="">Novos químicos e suas utilidades</a></li>--->
+								
 
 						</ul>
 						<a href="/bolsas" class = "botao">Ver todos &raquo;</a>
 					</div>
 					<div class = "coluna">
-							<h3>Ultima em monitorias: </h3>
+							<h3>Última em monitorias: </h3>
 							<img src = "{{ url_for('static',filename='styles/img/encher_linguica.jpg') }}" alt = "Exatas">
 						</div>
 				</section>
@@ -82,6 +78,8 @@
 				</div>
 			</div>
 
+
+			<hr>
 			<div class = "footer">
 
 				<div class = "linha">

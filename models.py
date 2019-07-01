@@ -68,6 +68,7 @@ class Bolsa(db.Model):
 
             return bolsas
     
+    
 
 class Usuario(db.Model):
   
@@ -129,7 +130,37 @@ class Usuario(db.Model):
         db.session.commit()
 
         return user
-        
+    def buscarProfessores(busca=''):
+        """ Retorna todos os professores """
+
+        if busca == '':
+            professores = Usuario.query.filter_by(professor=True).all()
+
+            return professores
+
+    def buscarProfessorNome(professor_nome):
+        """ Retorna as informacoes dos professores com o nome especificado """
+
+        informacoes = Usuario.query.filter_by(nome=professor_nome).filter_by(professor=True).all()
+
+        return informacoes
+
+    def buscarProfessorID(professor_id):
+        """ Retorna as informacoes de um professor especifico """
+
+        informacoes = Usuario.query.filter_by(id=professor_id).first()
+
+        return informacoes
+    
+    def buscarAlunoID(aluno_id):
+        """ Retorna as informacoes de um aluno especifico """
+
+        informacoes = Usuario.query.filter_by(id=aluno_id).first()
+
+        return informacoes
+    
+    def retornaId(self):
+        return self.id
     
 class InscricaoBolsa(db.Model):
     """ Classe modelo para construção da tabela de inscrições de bolsa """

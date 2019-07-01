@@ -1,78 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!--- A Estrutura da página do aluno e do professor serão basicamente idênticas mudando apenas as opções, ambas as páginas mostrarão as bolsas registradas a diferença básica é que a página do professor deverá possuir um link para a publicação de novas bolsas. --->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/paginaAluno.css') }}">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static',filename='styles/js/jquery.js') }}"></script>
+    <script src="{{ url_for('static',filename='styles/js/popper.js') }}"></script>
+    <script src="{{ url_for('static',filename='styles/js/bootstrap.min.js') }}"></script>
 
-<!--- Discutir como será feita a exibição do perfil do professor? Será uma segunda página relacionada à página do professor? O que ela irá retornar? Apenas uma descrição básica e uma lista de bolsas publicadas? --->
+    <title>Página do Aluno</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-danger justify-content-between fixed-top">
+      <a class="navbar-brand" style="color: white" href="{{ url_for('index') }}">BolsasUFJF</a>
+    </nav>
 
-<html lang = "pt">
+    <hr>
+    
 
-	<head>
+    <div class="container">
+      
+      <img id="profileImg" src="../static/styles/img/userImg.png">
 
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Página Aluno</title>
-		<meta name = "author" content="Renan Nunes, Victor Aquiles, Thiago Guimarães"/>
 
-		<!---<link rel="stylesheet" type="text/css" href="C:\Users\Renan\Documents\GitHub\BolsasUFJF\project\static\styles\css\PaginaAluno.css">--->
-		<link rel="stylesheet" href="{{ url_for('static',filename='styles/css/paginaAluno.css') }}">
-	
-	</head>
+      <h3>Informações do Aluno</h3>
 
-	<body>
-
-		<div class = "header">
-
-			<div class = "linha">
-				<header>
-					
-					<div class="container-fluid">
+      <div class="info">
         
-       					<h1><a id="Titulo" href="#">BolsasUFJF</a></h1>
+        <p>Nome Completo : </p>
+        <p>Matrícula : </p>
+        <p>E-mail para contato : </p>
+        <p>Curso : </p>
 
-   					 </div>
+        <div class="dropright">
+          <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Bolsas Inscritas
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Bolsa 1</a>
+            <a class="dropdown-item" href="#">Bolsa 2</a>
+            <a class="dropdown-item" href="#">Bolsa 3</a>
+            <a class="dropdown-item" href="#">Ver todas</a>
 
-				</header>
-			</div>
+          </div>
+        </div>
 
-		</div>
+      </div>
 
-		<div class = "linha">
-			<div class = "info">
-				<section>
-					<h2>Informações básicas do Aluno:</h2>
-					
-					<p>Nome Completo : </p>
-       				<p>E-mail para contato : </p>
-        			<p>Curso : </p>
+    </div>
+  
 
-				</section>
-			</div>
-		</div>
+  <div class="container-fluid"><hr></div>
 
+  <div style="margin: 25px;"></div>
+  <!-- Footer -->
+  <footer class="page-footer font-small blue">
 
-		<div class = "linha">
-			<div class = "info">
-				<section>
-					<h3>Bolsas selecionadas:</h3>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	            			<a class="dropdown-item" href="#">Bolsa 1</a>
-	           				<a class="dropdown-item" href="#">Bolsa 2</a>
-	            			<a class="dropdown-item" href="#">Bolsa 3</a>
-	            			<a class="dropdown-item" href="#">Ver todas</a>
-						</div>
-				</section>
-			</div>
-		</div>
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">&copy 2019 Copyright
+     
+    </div>
+    <!-- Copyright -->
 
-		<div class = "linha">
-			<div class = "footer">
-				<footer>
-					<span>&copy; 2019 - BolsasUFJF</span>
-				</footer>
-			</div>
-		</div>
+  </footer>
+  <!-- Footer -->
 
-
-	</body>
-
+  </body>
 </html>

@@ -25,6 +25,9 @@ Session(app)
 
 @app.route('/')
 def index():
+    
+    ''' if request.method == 'GET':
+        bolsas = Bolsa.buscarBolsas()'''
     return render_template('index.html')
 
 from models import Bolsa, InscricaoBolsa, Usuario
@@ -125,9 +128,67 @@ def feed():
 
         return render_template('feed.html', bolsas=bolsas, apresentacao=apresentacao)
 
+
+
+@app.route('/professor/<int:professor_id>', methods=['GET'])
+def professor(professor_id):
+    # Request dos dados do professor no banco
+    professor = Usuario.buscarProfessorID(professor_id)
+
+    return render_template('paginaProfessor.html', professor=professor)
+
+
+@app.route('/professores', methods=['GET', 'POST'])
+def mostraProfessores():
+    if request.method == 'GET':
+
+        # Todos os professores são mostrados por nome
+        professores = Usuario.buscarProfessores()
+
+        apresentacao = 'Professores cadastrados:'
+
+        return render_template('paginaProfessores.html', professores=professores, apresentacao=apresentacao)
+
+    else:
+
+        try:
+            busca = request.form['busca']
+        except:
+            busca = ''
+
+        if busca == '':
+            # Todos os professores são mostrados por nome
+            professores = Usuario.buscarProfessores()
+
+            apresentacao = f'Professores cadastrados:'
+
+        else:
+            # filtra os professores de acordo com o nome passado por parametro
+            nome = busca
+            professores = Usuario.buscarProfessorNome(nome)
+
+            if professores is None :
+                apresentacao = f'Professor não encontrado :( '
+            else:
+                apresentacao = f'Resultado da busca:'
+
+        return render_template('paginaProfessores.html', professores=professores, apresentacao=apresentacao)
+
+
 @app.route('/Aluno',methods=['GET'])
 def paginaAluno():
-    return render_template('PaginaAluno.html')
+    
+    if request.method == 'GET':
+        user = session['user']
+        identidade = Usuario.retornaId()
+        
+        aluno = Usuario.query.filter_by(identidade).first()
+       
+     # só é possivel acessa a página se estiver logado e for aluno
+     if session['logged_in'] and not session['professor']:   
+         return render_template('PaginaAluno.html',aluno=aluno)
+    
+    """ return render_template('/naoLogado.html')"""
     
 @app.route('/Professor')
 def paginaProfessor():
