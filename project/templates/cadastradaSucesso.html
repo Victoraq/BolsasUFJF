@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{ url_for('static',filename='styles/js/jquery.js') }}"></script>
+    <script src="{{ url_for('static',filename='styles/js/popper.js') }}"></script>
+    <script src="{{ url_for('static',filename='styles/js/bootstrap.min.js') }}"></script>
+
+    <title>Página do Professor</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-light bg-danger justify-content-between fixed-top">
+      <a class="navbar-brand" style="color: white" href="{{ url_for('index') }}">BolsasUFJF</a>
+    </nav>
+
+    <hr>
+
+    <div class="container">
+      
+      <h1 style="margin-top: 100px">Bolsa cadastrada com sucesso !</h1>
+
+      <a style="margin-top: 20px" href="{{ url_for('index') }}">Voltar à página principal</a>
+
+    </div>
+  
+
+  <div class="container-fluid"><hr style="margin-top: 300px"></div>
+
+  <div style="margin: 25px;"></div>
+  <!-- Footer -->
+  <footer class="page-footer font-small blue">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">&copy 2019 Copyright
+     
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+
+  </body>
+</html>

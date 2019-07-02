@@ -7,6 +7,9 @@ from sqlalchemy import delete, insert, update
 from flask_login import current_user, login_required, LoginManager, login_user
 from flask_user import roles_required
 
+project_dir = os.path.dirname(os.path.abspath(__file__))
+database_file = "sqlite:///{}".format(os.path.join(project_dir, "bolsasUFJF.db"))
+
 # Configure app
 app = Flask(__name__)
 
@@ -25,13 +28,23 @@ Session(app)
 
 @app.route('/')
 def index():
+
     #Request todas as bolsas cadastradas
     bolsas = Bolsa.buscarBolsas()
 
     if len(bolsas) >= 4:
         bolsas = bolsas[:4]
+
+
+    if 'aluno' in session and session['logged_in'] and session['aluno']:
+        return render_template('index.html', session='aluno', user=session['user'], bolsas=bolsas)
+    else:
+        if 'professor' in session and session['professor']:
+            return render_template('index.html', session='professor', user=session['user'], bolsas=bolsas)
+
+    return render_template('index.html', session='naoLogado', user=None, bolsas=bolsas)
     
-    return render_template('index.html')
+
 
 from models import Bolsa, InscricaoBolsa, Usuario
 
@@ -92,7 +105,7 @@ def formBolsa():
             # Adicionando dados na tabela de bolsas
             bolsa = Bolsa.addBolsa(**dados)
 
-            return redirect(url_for('bolsa', bolsa_id=bolsa.id))
+            return render_template("cadastradaSucesso.html")
         else:
             return render_template('formBolsa.html')
 
@@ -178,23 +191,22 @@ def mostraProfessores():
         return render_template('paginaProfessores.html', professores=professores, apresentacao=apresentacao)
 
 
-@app.route('/Aluno',methods=['GET'])
-def paginaAluno():    
+@app.route('/Aluno/<int:user_id>',methods=['GET'])
+def paginaAluno(user_id):
      
-    try:
-        if session['logged_in'] and session['aluno']:
-            user = session['user']
-            inscricoes = InscricaoBolsa.buscarIncricaoAluno(user.id)
-            bolsas = InscricaoBolsa.buscaNome(inscricoes)
-        
-            return render_template('PaginaAluno.html',bolsas=bolsas)
-        elif session['logged_in'] and session['professor']:
-            user = session['user']
-            return redirect(url_for('professor',professor_id = user.id))
-        else:
-            return render_template('/naoLogado.html')
-    except:
+
+    if session['logged_in'] and session['aluno']:
+        user = session['user']
+        inscricoes = InscricaoBolsa.buscaInscricaoAluno(user.id)
+        bolsas = InscricaoBolsa.buscaNome(inscricoes)
+
+        return render_template('PaginaAluno.html',bolsas=bolsas, user=user)
+    elif session['logged_in'] and session['professor']:
+        user = session['user']
+        return redirect(url_for('professor',professor_id = user.id))
+    else:
         return render_template('/naoLogado.html')
+
     
 
 @app.route('/cadastro', methods=["GET", "POST"])
@@ -225,12 +237,17 @@ def login():
         
         #Procurando usuario no banco de dados
         user = Usuario.query.filter_by(email=dados['email']).first()
-        
+
         if user:
             if user.password == dados['password']:
                 user.authenticated = True
                 session['logged_in'] = True
-                session['aluno'] = user.aluno
+
+                if user.aluno == True:
+                    session['aluno'] = user.aluno
+                else:
+                    session['professor'] = user.professor
+
                 session['user'] = user
 
                 return index()

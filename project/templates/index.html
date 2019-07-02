@@ -12,7 +12,7 @@
 
 		<!-- Bootstrap CSS -->
 	    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
-	    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/Index.css') }}">
+	    <link rel="stylesheet" href="{{ url_for('static',filename='styles/css/index.css') }}">
 	    
 	    <!-- Optional JavaScript -->
 	    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -30,17 +30,33 @@
 			<nav class="navbar navbar-light bg-danger justify-content-between fixed-top">
 	            <a class="navbar-brand" style="color: white" href="{{ url_for('index') }}">BolsasUFJF</a>
 	            <ul class = "menu inline sem-marcador">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="{{ url_for('paginaAluno') }}">Meu Perfil</a></li>
-					<li><a href="{{ url_for('mostraProfessores') }}">Professores</a></li>
-					<li><a href="{{ url_for('cadastro') }}">Cadastre-se</a></li>
-					<li><a href="{{ url_for('login') }}">Login</a></li>
-					<li><a href="{{ url_for('logout') }}">Logout</a></li>
+					<li><a href="{{ url_for('index') }}">Home</a></li>
+
+					{% if user == None %}
+						<li><a href="{{ url_for('cadastro') }}">Cadastre-se</a></li>
+						<li><a href="{{ url_for('login') }}">Login</a></li>
+					{% else %}
+						{%set nome = user.nome%}
+						
+						<li id="greetings">"Bem vindo, {{nome}} !"</li>
+
+						{% if session == 'aluno' %}
+							<li><a href="/Aluno/{{user.id}}">minhas informações</a></li>
+							<li><a href="{{ url_for('mostraProfessores') }}">professores</a></li>
+
+						{% elif session == 'professor' %}
+							<li><a href="/professor/{{user.id}}">minhas informações</a></li>
+							<li><a href="{{ url_for('formBolsa') }}">cadastrar bolsa</a></li>
+
+						{% endif %}
+
+						<li><a href="{{ url_for('logout') }}">logout</a></li>
+					{% endif %}
 
 				</ul>
           	</nav>
 
-
+          	<div style="margin-top: 100px"></div>
 			<div class = "linha">
 				<section>
 					<div class = "coluna">
@@ -54,7 +70,7 @@
 							{% endfor %}
 
 						</ul>
-						<a href="/bolsas" class = "botao">Ver todos &raquo;</a>
+						<a style="margin-top: 20px" href="/bolsas" class = "botao">Ver todos &raquo;</a>
 					</div>
 					<div class = "coluna">
 							<h3>Última em monitorias: </h3>

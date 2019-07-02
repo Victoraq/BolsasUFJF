@@ -1,12 +1,19 @@
 body {
+
 	font-family: 'Roboto', sans-serif;
 	color: #333;
 }
+
+#greetings{
+	color: #315e8a; 
+}
+
 
 a:link, a:active, a:visited{
 	color: #315e8a;
 	text-decoration: none;
 }
+
 a:hover{
 	text-decoration: underline;
 }
@@ -155,6 +162,7 @@ h1.logo{
 }
 
 .menu li a{
+	
 	padding: 5px 10px;
 	border-radius: 3px;
 }
