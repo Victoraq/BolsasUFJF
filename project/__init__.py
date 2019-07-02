@@ -7,8 +7,7 @@ from sqlalchemy import delete, insert, update
 from flask_login import current_user, login_required, LoginManager, login_user
 from flask_user import roles_required
 
-project_dir = os.path.dirname(os.path.abspath(__file__))
-database_file = "sqlite:///{}".format(os.path.join(project_dir, "bolsasUFJF.db"))
+
 
 # Configure app
 app = Flask(__name__)
